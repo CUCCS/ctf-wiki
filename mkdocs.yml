@@ -6,6 +6,7 @@ nav:
       - F.A.Q: FAQ.md
   - MISC:
       - 简介: MISC/intro.md
+      - 信息搜集 && 编码: MISC/MISC-2/MISC-2.md
       - 数字取证 && 隐写分析: MISC/数字取证_隐写分析.md
   - CRYPRO:
       - 简介: CRYPRO/intro.md

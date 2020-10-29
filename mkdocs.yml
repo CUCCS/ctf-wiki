@@ -12,6 +12,7 @@ nav:
       - 简介: CRYPRO/intro.md
   - WEB:
       - 简介: WEB/intro.md
+      - XSS(跨站点脚本攻击):WEB/WEB-1/XSS(跨站点脚本攻击).md
   - PWN:
       - 简介: PWN/intro.md
   - REVERSE:    

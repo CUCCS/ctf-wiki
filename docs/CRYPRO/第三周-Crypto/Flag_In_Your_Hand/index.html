@@ -1,0 +1,66 @@
+<html>
+	<head>
+		<title>Flag in your Hand</title>
+		<style type="text/css">
+			body {
+				padding-left: 30%;
+			}
+
+			#flag {
+				font-family: Garamond, serif;
+				font-size: 36px;
+			}
+
+			#flagtitle {
+				font-family: Garamond, serif;
+				font-size: 24px;
+			}
+
+			.rightflag {
+				color: green;
+			}
+
+			.wrongflag {
+				color: red;
+			}
+		</style>
+		<script src="script-min.js"></script>
+		<script type="text/javascript">
+			var ic = false;
+			var fg = "";
+
+			function getFlag() {
+				var token = document.getElementById("secToken").value;
+				ic = checkToken(token);
+				fg = bm(token);
+				showFlag()
+			}
+
+			function showFlag() {
+				var t = document.getElementById("flagTitle");
+				var f = document.getElementById("flag");
+				t.innerText = !!ic ? "You got the flag below!!" : "Wrong!";
+				t.className = !!ic ? "rightflag" : "wrongflag";
+				f.innerText = fg;
+			}
+		</script>
+	</head>
+	<body>
+		<h1>Flag in your Hand</h1>
+		<p>Type in some token to get the flag.</p>
+		<p>Tips: Flag is in your hand.</p>
+		<div>
+			<p>
+				<span>Token:</span>
+				<span><input type="text" id="secToken"/></span>
+			</p>
+			<p>
+				<input type="button" value="Get flag!" onclick="getFlag()" />
+			</p>
+		</div>
+		<div>
+			<p id="flagTitle"></p>
+			<p id="flag"></p>
+		</div>
+	</body>
+</html>

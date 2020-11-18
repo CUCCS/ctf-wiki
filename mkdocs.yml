@@ -14,6 +14,7 @@ nav:
   - WEB:
       - 简介: WEB/intro.md
       - XSS: WEB/WEB-1/XSS(跨站点脚本攻击).md
+      - PHP audit: WEB/WEB-2/Web PHP audit.md
   - PWN:
       - 简介: PWN/intro.md
   - REVERSE:    

@@ -18,6 +18,8 @@ nav:
       - SQL Injection: WEB/WEB-3/index.md
   - PWN:
       - 简介: PWN/intro.md
+      - 格式化字符串漏洞: PWN/格式化字符串漏洞/格式化字符串漏洞综合训练.md
+      - 栈溢出: PWN/栈溢出/栈溢出.md
   - REVERSE:    
       - 简介: REVERSE/intro.md
   - 集训安排:

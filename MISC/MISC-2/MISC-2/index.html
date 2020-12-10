@@ -1,0 +1,1031 @@
+
+
+
+
+<!doctype html>
+<html lang="zh" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      <meta http-equiv="x-ua-compatible" content="ie=edge">
+      
+      
+      
+      
+        <meta name="lang:clipboard.copy" content="复制">
+      
+        <meta name="lang:clipboard.copied" content="已复制">
+      
+        <meta name="lang:search.language" content="jp">
+      
+        <meta name="lang:search.pipeline.stopwords" content="True">
+      
+        <meta name="lang:search.pipeline.trimmer" content="True">
+      
+        <meta name="lang:search.result.none" content="没有找到符合条件的结果">
+      
+        <meta name="lang:search.result.one" content="找到 1 个符合条件的结果">
+      
+        <meta name="lang:search.result.other" content="# 个符合条件的结果">
+      
+        <meta name="lang:search.tokenizer" content="[\uff0c\u3002]+">
+      
+      <link rel="shortcut icon" href="../../../favicon.ico">
+      <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-4.6.3">
+    
+    
+      
+        <title>信息搜集 && 编码 - CUC CTF-Wiki</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/application.adb8469c.css">
+      
+        <link rel="stylesheet" href="../../../assets/stylesheets/application-palette.a8b3c06d.css">
+      
+      
+        
+        
+        <meta name="theme-color" content="">
+      
+    
+    
+      <script src="../../../assets/javascripts/modernizr.86422ebf.js"></script>
+    
+    
+      
+        <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Fira+Sans:300,400,400i,700%7CFira+Mono&display=fallback">
+        <style>body,input{font-family:"Fira Sans","Helvetica Neue",Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Fira Mono","Courier New",Courier,monospace}</style>
+      
+    
+    <link rel="stylesheet" href="../../../assets/fonts/material-icons.css">
+    
+      <link rel="manifest" type="application/manifest+json" href="../../../manifest.webmanifest" crossorigin="use-credentials">
+    
+    
+      <link rel="stylesheet" href="../../../_static/css/extra.css?v=12">
+    
+    
+      
+    
+    
+  </head>
+  
+    
+    
+    <body dir="ltr" data-md-color-primary="white" data-md-color-accent="red">
+  
+    <svg class="md-svg">
+      <defs>
+        
+        
+      </defs>
+    </svg>
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" data-md-component="overlay" for="__drawer"></label>
+    
+      <a href="#misc" tabindex="0" class="md-skip">
+        跳转至
+      </a>
+    
+    
+      <header class="md-header" data-md-component="header">
+  <nav class="md-header-nav md-grid">
+    <div class="md-flex">
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <a href="../../.." title="CUC CTF-Wiki" aria-label="CUC CTF-Wiki" class="md-header-nav__button md-logo">
+          
+            <i class="md-icon">school</i>
+          
+        </a>
+      </div>
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <label class="md-icon md-icon--menu md-header-nav__button" for="__drawer"></label>
+      </div>
+      <div class="md-flex__cell md-flex__cell--stretch">
+        <div class="md-flex__ellipsis md-header-nav__title" data-md-component="title">
+          
+            <span class="md-header-nav__topic">
+              CUC CTF-Wiki
+            </span>
+            <span class="md-header-nav__topic">
+              
+                信息搜集 && 编码
+              
+            </span>
+          
+        </div>
+      </div>
+      <div class="md-flex__cell md-flex__cell--shrink">
+        
+          <label class="md-icon md-icon--search md-header-nav__button" for="__search"></label>
+          
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" aria-label="search" name="query" placeholder="搜索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="query" data-md-state="active">
+      <label class="md-icon md-search__icon" for="__search"></label>
+      <button type="reset" class="md-icon md-search__icon" data-md-component="reset" tabindex="-1">
+        &#xE5CD;
+      </button>
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="result">
+          <div class="md-search-result__meta">
+            键入以开始搜索
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+        
+      </div>
+      
+    </div>
+  </nav>
+</header>
+    
+    <div class="md-container">
+      
+        
+      
+      
+        
+
+  
+
+<nav class="md-tabs md-tabs--active" data-md-component="tabs">
+  <div class="md-tabs__inner md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+    <li class="md-tabs__item">
+      
+        <a href="../../.." class="md-tabs__link">
+          首页
+        </a>
+      
+    </li>
+  
+
+      
+        
+  
+  
+    <li class="md-tabs__item">
+      
+        <a href="../../intro/" class="md-tabs__link md-tabs__link--active">
+          MISC
+        </a>
+      
+    </li>
+  
+
+      
+        
+  
+  
+    <li class="md-tabs__item">
+      
+        <a href="../../../CRYPRO/intro/" class="md-tabs__link">
+          CRYPRO
+        </a>
+      
+    </li>
+  
+
+      
+        
+  
+  
+    <li class="md-tabs__item">
+      
+        <a href="../../../WEB/intro/" class="md-tabs__link">
+          WEB
+        </a>
+      
+    </li>
+  
+
+      
+        
+  
+  
+    <li class="md-tabs__item">
+      
+        <a href="../../../PWN/intro/" class="md-tabs__link">
+          PWN
+        </a>
+      
+    </li>
+  
+
+      
+        
+  
+  
+    <li class="md-tabs__item">
+      
+        <a href="../../../REVERSE/intro/" class="md-tabs__link">
+          REVERSE
+        </a>
+      
+    </li>
+  
+
+      
+        
+  
+  
+    <li class="md-tabs__item">
+      
+        <a href="../../../training/2020Autumn/2020AutumnOutline/" class="md-tabs__link">
+          集训安排
+        </a>
+      
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+      
+      <main class="md-main" role="main">
+        <div class="md-main__inner md-grid" data-md-component="container">
+          
+            
+              <div class="md-sidebar md-sidebar--primary" data-md-component="navigation">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    <nav class="md-nav md-nav--primary" data-md-level="0">
+  <label class="md-nav__title md-nav__title--site" for="__drawer">
+    <a href="../../.." title="CUC CTF-Wiki" class="md-nav__button md-logo">
+      
+        <i class="md-icon">school</i>
+      
+    </a>
+    CUC CTF-Wiki
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-1" type="checkbox" id="nav-1">
+    
+    <label class="md-nav__link" for="nav-1">
+      首页
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-1">
+        首页
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../.." title="主页" class="md-nav__link">
+      主页
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../intro/" title="关于本项目" class="md-nav__link">
+      关于本项目
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../FAQ/" title="F.A.Q" class="md-nav__link">
+      F.A.Q
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-2" type="checkbox" id="nav-2" checked>
+    
+    <label class="md-nav__link" for="nav-2">
+      MISC
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-2">
+        MISC
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../intro/" title="简介" class="md-nav__link">
+      简介
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active">
+    
+    <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+    
+      
+    
+    
+    <a href="./" title="信息搜集 && 编码" class="md-nav__link md-nav__link--active">
+      信息搜集 && 编码
+    </a>
+    
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../MISC-1/%E6%95%B0%E5%AD%97%E5%8F%96%E8%AF%81_%E9%9A%90%E5%86%99%E5%88%86%E6%9E%90/" title="数字取证 && 隐写分析" class="md-nav__link">
+      数字取证 && 隐写分析
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-3" type="checkbox" id="nav-3">
+    
+    <label class="md-nav__link" for="nav-3">
+      CRYPRO
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-3">
+        CRYPRO
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../CRYPRO/intro/" title="简介" class="md-nav__link">
+      简介
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../CRYPRO/%E7%AC%AC%E4%B8%89%E5%91%A8-Crypto/Crypto/" title="古典密码、对称加密、非对称加密" class="md-nav__link">
+      古典密码、对称加密、非对称加密
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-4" type="checkbox" id="nav-4">
+    
+    <label class="md-nav__link" for="nav-4">
+      WEB
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-4">
+        WEB
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../WEB/intro/" title="简介" class="md-nav__link">
+      简介
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../WEB/WEB-1/XSS%28%E8%B7%A8%E7%AB%99%E7%82%B9%E8%84%9A%E6%9C%AC%E6%94%BB%E5%87%BB%29/" title="XSS" class="md-nav__link">
+      XSS
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../WEB/WEB-2/Web%20PHP%20audit/" title="PHP audit" class="md-nav__link">
+      PHP audit
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../WEB/WEB-3/" title="SQL Injection" class="md-nav__link">
+      SQL Injection
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-5" type="checkbox" id="nav-5">
+    
+    <label class="md-nav__link" for="nav-5">
+      PWN
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-5">
+        PWN
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../PWN/intro/" title="简介" class="md-nav__link">
+      简介
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../PWN/%E6%A0%BC%E5%BC%8F%E5%8C%96%E5%AD%97%E7%AC%A6%E4%B8%B2%E6%BC%8F%E6%B4%9E/%E6%A0%BC%E5%BC%8F%E5%8C%96%E5%AD%97%E7%AC%A6%E4%B8%B2%E6%BC%8F%E6%B4%9E%E7%BB%BC%E5%90%88%E8%AE%AD%E7%BB%83/" title="格式化字符串漏洞" class="md-nav__link">
+      格式化字符串漏洞
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../PWN/%E6%95%B4%E6%95%B0%E6%BA%A2%E5%87%BA%E6%BC%8F%E6%B4%9E/%E6%95%B4%E6%95%B0%E6%BA%A2%E5%87%BA/" title="整数溢出" class="md-nav__link">
+      整数溢出
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-6" type="checkbox" id="nav-6">
+    
+    <label class="md-nav__link" for="nav-6">
+      REVERSE
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-6">
+        REVERSE
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../REVERSE/intro/" title="简介" class="md-nav__link">
+      简介
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-7" type="checkbox" id="nav-7">
+    
+    <label class="md-nav__link" for="nav-7">
+      集训安排
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-7">
+        集训安排
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../training/2020Autumn/2020AutumnOutline/" title="2020秋季集训" class="md-nav__link">
+      2020秋季集训
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary">
+  
+  
+    
+  
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                
+                <h1 id="misc">MISC之信息搜集与编码分析<a class="headerlink" href="#misc" title="Permanent link">&para;</a></h1>
+<h1 id="misc_1">MISC<a class="headerlink" href="#misc_1" title="Permanent link">&para;</a></h1>
+<p><strong>MISC = miscellaneous 杂项 大杂烩</strong></p>
+<ul>
+<li>
+<p>所有无法归入CTF主流类别的技能挑战</p>
+</li>
+<li>
+<p>作用</p>
+</li>
+<li>基础知识 </li>
+<li>技能面 </li>
+<li>逆向思维</li>
+<li>密码学</li>
+</ul>
+<h2 id="_1">信息搜集<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
+<ul>
+<li>
+<p>科学上网</p>
+</li>
+<li>
+<p>地图和街景搜索</p>
+</li>
+<li>国外：Google Map、Earth</li>
+<li>
+<p>国内：百度地图、腾讯地图（卫星视图、全景视图）</p>
+</li>
+<li>
+<p>网络世界到物理世界</p>
+</li>
+<li>IP2Location</li>
+<li><a href="https://github.com/itbdw/ip-database">纯真数据库</a></li>
+</ul>
+<h3 id="_2">示例<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h3>
+<p><img alt="" src="../img/%E7%A4%BE%E5%B7%A51.png" /></p>
+<p><img alt="" src="../img/%E7%8B%97.png" /></p>
+<p><img alt="" src="../img/%E7%A4%BE%E5%B7%A52.png" /></p>
+<h1 id="_3">编码分析<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h1>
+<h3 id="_4">通信领域常见编码<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h3>
+<ul>
+<li>
+<p>电话拨号</p>
+</li>
+<li>
+<p>1-9 分别使用 1-9 个脉冲，0 则表示使用 10 个脉冲</p>
+</li>
+<li>
+<p>Morse编码</p>
+</li>
+<li>摩尔斯电码（又译为摩斯密码，Morse code）是一种时通时断的信号代码。</li>
+</ul>
+<p><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span>1
+2
+3</pre></div></td><td class="code"><div class="codehilite"><pre><span></span><code>通过不同的排列顺序来表达不同的英文字母、数字和标点符号。
+摩尔斯电码由两种基本信号组成：
+短促的点信号“.”，读“滴”；保持一定时间的长信号“—”，读“嗒”。
+</code></pre></div>
+</td></tr></table>
+  - 特点：最多六位，只有-和.，也可以用01串表示</p>
+<p><img alt="" src="../img/morse.png" /></p>
+<p><strong>题目：</strong>-... -.- -.-. - ..-. -- .. ... -.-.</p>
+<h3 id="_5">计算机领域常见编码<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h3>
+<ul>
+<li>
+<p>二进制01编码</p>
+</li>
+<li>
+<p>Hex十六进制编码</p>
+</li>
+<li>
+<p>00-FF</p>
+</li>
+<li>
+<p>十六进制（简写为hex或下标16）在数学中是一种逢16进1的进位制。一般用数字0到9和字母A到F（或a ~ f）表示，其中:A ~ F表示10 ~ 15，这些称作十六进制数字。</p>
+</li>
+<li>
+<p>ASCII编码</p>
+</li>
+<li>
+<p>我们一般使用的 ascii 编码的时候采用的都是可见字符，而且主要是如下字符</p>
+<ul>
+<li><code>0-9</code>, 49-57</li>
+<li><code>A-Z</code>, 65-90</li>
+<li><code>a-z</code>, 97-122</li>
+<li><code>{</code>  <code>}</code>,123/125</li>
+</ul>
+</li>
+</ul>
+<p><img alt="" src="../img/ascii.jpg" /></p>
+<p><a href="http://www.ab126.com/goju/1711.html">在线解码工具</a></p>
+<p><strong>题目：掀桌子</strong> </p>
+<h3 id="base">Base家族<a class="headerlink" href="#base" title="Permanent link">&para;</a></h3>
+<ul>
+<li>
+<p>Base64编码</p>
+</li>
+<li>
+<p>基于64个可打印字符来表示二进制数据的表示方法</p>
+</li>
+<li>
+<p>字符集：大小写字母各26个、10个数字、加号"+"、斜杠 ”/ “、一共64个字符。等号” = “作为后缀用途
+  <table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span>1
+2
+3</pre></div></td><td class="code"><div class="codehilite"><pre><span></span><code>每3个字符由4个可打印字符表示。
+若原数据长度不是3的倍数且剩下1个输入数据，则在编码结果后加两个=，
+若剩下两个数据，则在编码结果后加一个=  
+</code></pre></div>
+</td></tr></table></p>
+</li>
+<li>
+<p>特征:大小写一串，可能有 = +</p>
+</li>
+<li>
+<p>Base32</p>
+</li>
+</ul>
+<p>32个可打印字符，A ~ Z、2 ~ 7 、32个可打印字符，“=”符号用作后缀填充
+  <table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span>1
+2
+3
+4</pre></div></td><td class="code"><div class="codehilite"><pre><span></span><code>若原数据长度不是5的倍数时且剩下1个输入数据，则在编码结果后加4个=;
+若剩下2个输入数据，则在编码结果后加3个=，以此类推。
+
+特征:只有大写字符，可能有= 
+</code></pre></div>
+</td></tr></table></p>
+<ul>
+<li>Base16</li>
+</ul>
+<p>16个可打印字符，A ~ F、0 ~ 9，16个可打印字符。</p>
+<ul>
+<li>Base58</li>
+</ul>
+<p>相比Base64，Base58不使用数字"0"，字母大写'O'，字母大写'I'，和字母小写'l'，以及"+"和"/"符号</p>
+<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span>1
+2
+3
+4</pre></div></td><td class="code"><div class="codehilite"><pre><span></span><code>Base家族特征：
+Base64 结尾可能会有 = 号，但最多有 2 个
+Base32 结尾可能会有 = 号，但最多有 6 个
+有可能需要自己加等号
+</code></pre></div>
+</td></tr></table>
+<p><a href="">Base家族示例</a>
+  <strong>题目示例</strong>:base64÷4</p>
+<h3 id="_6">现实世界常见编码<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h3>
+<ul>
+<li>条形码<ul>
+<li>宽度不等的多个黑条和空白，按照一定的编码规则排列，用以表达一组信息的图形标识符</li>
+<li>国际标准</li>
+<li>EAN-13 商品标准，13 位数字</li>
+<li>Code-39：39 字符</li>
+<li>Code-128：128 字符</li>
+<li><a href="https://online-barcode-reader.inliteresearch.com/">在线工具</a></li>
+</ul>
+</li>
+</ul>
+<p><strong>题目示例</strong>：Banmabanma</p>
+<p><img alt="" src="../img/%E6%96%91%E9%A9%AC%E6%96%91%E9%A9%AC.png" /></p>
+<ul>
+<li>
+<p>二维码
+     <img alt="" src="../img/%E4%BA%8C%E7%BB%B4%E7%A0%81.jpg" /></p>
+</li>
+<li>
+<p>二维码物理问题
+     <img alt="" src="../img/%E4%BA%8C%E7%BB%B4%E7%A0%81.PNG" /></p>
+<p><img alt="" src="../img/%E6%8B%BC%E6%8E%A5.png" /></p>
+</li>
+<li>
+<p>二进制二维码</p>
+<ul>
+<li>题目给出了一段全是01的数字串，且数字的长度为一个整数的平方（如25^2=625）时，有可能是以0、1表示黑或者白的一个像素，可以生成一个正方形的像素图。</li>
+</ul>
+</li>
+<li>
+<p>二维码隐藏信息</p>
+<ul>
+<li>二维码识别工具QR_Research
+ <img alt="" src="../img/key%E4%B8%8D%E5%9C%A8.png" /></li>
+</ul>
+</li>
+</ul>
+<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11</pre></div></td><td class="code"><div class="codehilite"><pre><span></span><code> &quot;flag&quot;
+
+ 01100110 01101100 01100001 01100111（二进制）
+ 146 154 141 147 （八进制）
+ 102 108 97 103 （十进制）
+ 66 6c 61 67 （十六进制）
+ ZmxhZ==（base64）
+ MZWGCZ（base32）
+ synt（rot13）
+ …-. .-… .- --.（莫斯码）
+ 21 31 11 22（敲击码）
+</code></pre></div>
+</td></tr></table>
+<h3 id="_7">其他编解码<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h3>
+<ul>
+<li>
+<p><a href="http://www.keyfc.net/BBs/tools/tudoucode.aspx">佛曰</a></p>
+</li>
+<li>
+<p><a href="http://www.atoolbox.net/Tool.php?Id=703">颜文字AAEncode</a></p>
+</li>
+<li>
+<p><a href="https://www.jisuan.mobi/puzzm6z1B1HH6yXW.html">rot-13</a></p>
+</li>
+<li>
+<p><code>ROT13</code>（回转13位，rotateby13places，有时中间加了个减号称作ROT-13）是一种简易的置换暗码。它是一种在网路论坛用作隐藏八卦、妙句、谜题解答以及某些脏话的工具。</p>
+</li>
+<li>
+<p><a href="http://ctf.ssleye.com/">其他</a></p>
+</li>
+</ul>
+<h3 id="_8">参考链接：<a class="headerlink" href="#_8" title="Permanent link">&para;</a></h3>
+<ul>
+<li>
+<p><a href="https://www.freebuf.com/column/228957.html">https://www.freebuf.com/column/228957.html</a></p>
+</li>
+<li>
+<p><a href="https://www.pianshen.com/article/9976694150/">https://www.pianshen.com/article/9976694150/</a></p>
+</li>
+<li>
+<p><a href="https://wiki.x10sec.org/">https://wiki.x10sec.org/</a></p>
+</li>
+<li>
+<p><a href="https://blog.csdn.net/x947955250/article/details/81304430">https://blog.csdn.net/x947955250/article/details/81304430</a></p>
+</li>
+<li>
+<p><a href="https://www.bilibili.com/video/BV1RK4y1t733?p=9&amp;t=531">https://www.bilibili.com/video/BV1RK4y1t733?p=9&amp;t=531</a></p>
+</li>
+<li>
+<p><a href="https://cli.im/news/help/10601">https://cli.im/news/help/10601</a></p>
+</li>
+</ul>
+                
+                  
+                
+                
+              
+              
+                
+
+
+              
+            </article>
+          </div>
+        </div>
+      </main>
+      
+        
+<footer class="md-footer">
+  
+    <div class="md-footer-nav">
+      <nav class="md-footer-nav__inner md-grid">
+        
+          <a href="../../intro/" title="简介" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+            <div class="md-flex__cell md-flex__cell--shrink">
+              <i class="md-icon md-icon--arrow-back md-footer-nav__button"></i>
+            </div>
+            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+              <span class="md-flex__ellipsis">
+                <span class="md-footer-nav__direction">
+                  上一页
+                </span>
+                简介
+              </span>
+            </div>
+          </a>
+        
+        
+          <a href="../../MISC-1/%E6%95%B0%E5%AD%97%E5%8F%96%E8%AF%81_%E9%9A%90%E5%86%99%E5%88%86%E6%9E%90/" title="数字取证 && 隐写分析" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
+            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+              <span class="md-flex__ellipsis">
+                <span class="md-footer-nav__direction">
+                  下一页
+                </span>
+                数字取证 && 隐写分析
+              </span>
+            </div>
+            <div class="md-flex__cell md-flex__cell--shrink">
+              <i class="md-icon md-icon--arrow-forward md-footer-nav__button"></i>
+            </div>
+          </a>
+        
+      </nav>
+    </div>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+        powered by
+        <a href="https://www.mkdocs.org" target="_blank" rel="noopener">MkDocs</a>
+        and
+        <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+          Material for MkDocs</a>
+      </div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    
+      <script src="../../../assets/javascripts/application.c33a9706.js"></script>
+      
+        
+        
+          
+          <script src="../../../assets/javascripts/lunr/lunr.stemmer.support.js"></script>
+          
+            
+              
+              
+            
+          
+          
+        
+      
+      <script>app.initialize({version:"1.1.2",url:{base:"../../.."}})</script>
+      
+        <script src="../../../_static/js/extra.js?v=16"></script>
+      
+        <script src="https://cdnjs.loli.net/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+      
+    
+  </body>
+</html>

@@ -2,13 +2,10 @@
 
 # 欢迎新同学！
 
-中国传媒大学 CTF 竞赛群：1148641860
-
 ## Contents
 
-- 2020秋季集训
-- MISC
-- CRYPRO
-- WEB
-- PWN
-- REVERSE
+- [MISC](MISC/intro.md)
+- [CRYPRO](CRYPTO/intro.md)
+- [WEB](WEB/intro.md)
+- [PWN](PWN/intro.md)
+- [REVERSE](REVERSE/intro.md)

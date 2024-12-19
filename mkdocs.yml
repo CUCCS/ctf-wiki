@@ -34,7 +34,7 @@ theme:
   palette:
     primary: 'white'
     accent: 'red'
-  include_search_page: false
+  include_search_page: true
   search_index_only: true
   favicon: 'favicon.ico'
 
@@ -49,7 +49,7 @@ theme:
 # Customization
 extra:
   search:
-    language: 'jp'
+    language: 'zh'
   pagetime: 'on'
   manifest: 'manifest.webmanifest'
   githash: ''

@@ -11,7 +11,7 @@
 | ------ | ---------------------------------------------------------- | -------------------------------------------- |
 | 第一周 | 2020秋季训练开营仪式、CTF 概述、MISC（数字取证、隐写分析） | Cheng yixuan                                 |
 | 第二周 | MISC（信息搜集、编码转换）                                 | Li shuang                                    |
-| 第三周 | CRYPRO（常见加密算法）                                     | Zhao en ze                                   |
+| 第三周 | CRYPTO（常见加密算法）                                     | Zhao en ze                                   |
 | 第四周 | WEB（XSS 跨站脚本攻击）                                    | Zhang zhixin                                 |
 | 第五周 | WEB（PHP代码审计）                                         | Li yuancheng                                 |
 | 第六周 | WEB（SQL 注入、SSRF 服务端请求伪造）                       | Chen xiaotian                                |

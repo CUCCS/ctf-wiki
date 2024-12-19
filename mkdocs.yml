@@ -13,9 +13,9 @@ nav:
       - 简介: MISC/intro.md
       - 信息搜集 && 编码: MISC/MISC-2/MISC-2.md
       - 数字取证 && 隐写分析: MISC/MISC-1/数字取证_隐写分析.md
-  - CRYPRO:
-      - 简介: CRYPRO/intro.md
-      - 古典密码、对称加密、非对称加密: CRYPRO/第三周-Crypto/Crypto.md
+  - CRYPTO:
+      - 简介: CRYPTO/intro.md
+      - 古典密码、对称加密、非对称加密: CRYPTO/第三周-Crypto/Crypto.md
   - WEB:
       - 简介: WEB/intro.md
       - XSS: WEB/WEB-1/XSS(跨站点脚本攻击).md

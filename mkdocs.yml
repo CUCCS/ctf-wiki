@@ -1,4 +1,9 @@
 site_name: CUC CTF-Wiki
+
+repo_name: 'CUC CTF-Wiki'
+repo_url: 'https://github.com/cuccs/ctf-wiki'
+edit_uri: 'blob/master/docs/'
+
 nav:
   - 首页:
       - 主页: index.md
@@ -25,6 +30,7 @@ nav:
       - 简介: REVERSE/intro.md
   - 集训安排:
       - 2020秋季集训: training/2020Autumn/2020AutumnOutline.md
+      - 2022秋季集训: training/2022Autumn/秋季培训大纲.md
 
 
 ## Theme
@@ -38,8 +44,7 @@ theme:
   search_index_only: true
   favicon: 'favicon.ico'
 
-  logo:
-    icon: 'school'
+  logo: images/logo.jpg
   feature:
     tabs: true
   font:

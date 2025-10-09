@@ -69,7 +69,6 @@ PWN这个方向对于个人知识体系的要求非常苛刻，学习起来也�
 ## 此部分的贡献者
 
 - [tutu201611123006](https://github.com/tutu201611123006)
-- [cloud0606](https://github.com/cloud0606)        
-
+- [cloud0606](https://github.com/cloud0606)
 - [DNMS7e9o7B](https://github.com/DNMS739078)
 

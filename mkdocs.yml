@@ -23,6 +23,9 @@ nav:
       - SQL Injection: WEB/WEB-3/index.md
   - PWN:
       - 简介: PWN/intro.md
+      - C语言前置基础(基础篇): PWN/前置基础/C语言基础.md
+      - C语言前置基础(进阶篇): PWN/前置基础/C语言进阶.md
+      - Linux前置基础及工具: PWN/前置基础/Linux基础及工具.md
       - 格式化字符串漏洞: PWN/格式化字符串漏洞/格式化字符串漏洞综合训练.md
       - 栈溢出: PWN/栈溢出/栈溢出.md
       - 整数溢出: PWN/整数溢出漏洞/整数溢出.md

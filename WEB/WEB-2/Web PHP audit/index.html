@@ -1,0 +1,2068 @@
+
+<!doctype html>
+<html lang="zh" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../../WEB-1/XSS%28%E8%B7%A8%E7%AB%99%E7%82%B9%E8%84%9A%E6%9C%AC%E6%94%BB%E5%87%BB%29/">
+      
+      
+        <link rel="next" href="../../WEB-3/">
+      
+      
+      <link rel="icon" href="../../../favicon.ico">
+      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.5.17">
+    
+    
+      
+        <title>PHP audit - CUC CTF-Wiki</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.bcfcd587.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Fira+Sans:300,300i,400,400i,700,700i%7CFira+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Fira Sans";--md-code-font:"Fira Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../_static/css/extra.css?v=12">
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="white" data-md-color-accent="red">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#web-php" class="md-skip">
+          跳转至
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="页眉">
+    <a href="../../.." title="CUC CTF-Wiki" class="md-header__button md-logo" aria-label="CUC CTF-Wiki" data-md-component="logo">
+      
+  <img src="../../../images/logo.jpg" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            CUC CTF-Wiki
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              PHP audit
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="搜索" placeholder="搜索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="查找">
+        
+        <button type="reset" class="md-search__icon md-icon" title="清空当前内容" aria-label="清空当前内容" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            正在初始化搜索引擎
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/cuccs/ctf-wiki" title="前往仓库" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    CUC CTF-Wiki
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="导航栏" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="CUC CTF-Wiki" class="md-nav__button md-logo" aria-label="CUC CTF-Wiki" data-md-component="logo">
+      
+  <img src="../../../images/logo.jpg" alt="logo">
+
+    </a>
+    CUC CTF-Wiki
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/cuccs/ctf-wiki" title="前往仓库" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    CUC CTF-Wiki
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_1" id="__nav_1_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    首页
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_1">
+            <span class="md-nav__icon md-icon"></span>
+            首页
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    主页
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../intro/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    关于本项目
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../FAQ/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    F.A.Q
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    MISC
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            MISC
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../MISC/intro/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    简介
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../MISC/MISC-2/MISC-2/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    信息搜集 && 编码
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../MISC/MISC-1/%E6%95%B0%E5%AD%97%E5%8F%96%E8%AF%81_%E9%9A%90%E5%86%99%E5%88%86%E6%9E%90/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    数字取证 && 隐写分析
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    CRYPTO
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            CRYPTO
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../CRYPTO/intro/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    简介
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../CRYPTO/%E7%AC%AC%E4%B8%89%E5%91%A8-Crypto/Crypto/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    古典密码、对称加密、非对称加密
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    WEB
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            WEB
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../intro/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    简介
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../WEB-1/XSS%28%E8%B7%A8%E7%AB%99%E7%82%B9%E8%84%9A%E6%9C%AC%E6%94%BB%E5%87%BB%29/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    XSS
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    PHP audit
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    PHP audit
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      目录
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="目录">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      一、基本介绍
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#php" class="md-nav__link">
+    <span class="md-ellipsis">
+      二、PHP特性
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      三、文件包含
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      四、文件上传
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      五、命令执行
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      本周训练题
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      一、基本介绍
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="一、基本介绍">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#php_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      PHP介绍
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#php_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      php是世界上最好的语言
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      安全问题严重
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#php_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      二、PHP特性
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="二、PHP特性">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      弱类型比较
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#11" class="md-nav__link">
+    <span class="md-ellipsis">
+      1=="1"
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1=="1"">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#hash" class="md-nav__link">
+    <span class="md-ellipsis">
+      魔法HASH
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      内置函数的参数的松散性
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1-md5" class="md-nav__link">
+    <span class="md-ellipsis">
+      例子1 md5()
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-switch" class="md-nav__link">
+    <span class="md-ellipsis">
+      例子2 switch()
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_11" class="md-nav__link">
+    <span class="md-ellipsis">
+      三、文件包含
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="三、文件包含">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_12" class="md-nav__link">
+    <span class="md-ellipsis">
+      四、绕过上传检查
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_13" class="md-nav__link">
+    <span class="md-ellipsis">
+      主要题型：
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="主要题型：">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_14" class="md-nav__link">
+    <span class="md-ellipsis">
+      绕过前端扩展名和检测文件类型
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_15" class="md-nav__link">
+    <span class="md-ellipsis">
+      五、命令执行
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#preg_replace" class="md-nav__link">
+    <span class="md-ellipsis">
+      preg_replace() 代码执行
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#preg_match" class="md-nav__link">
+    <span class="md-ellipsis">
+      preg_match() 代码执行
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="preg_match() 代码执行">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_16" class="md-nav__link">
+    <span class="md-ellipsis">
+      异或的概念
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#php-function-b-echo-hello-angel_kitty-_-__-__" class="md-nav__link">
+    <span class="md-ellipsis">
+      &lt;?php function B(){ echo &quot;Hello Angel_Kitty&quot;; } $_++; $__= &quot;?&quot; ^ &quot;}&quot;; $__(); ?&gt;
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="<?php function B(){ echo "Hello Angel_Kitty"; } $_++; $__= "?" ^ "}"; $__(); ?>">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_get" class="md-nav__link">
+    <span class="md-ellipsis">
+      第一步 构造 _GET 读取
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_get_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      第二步 获取 _GET 参数
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_17" class="md-nav__link">
+    <span class="md-ellipsis">
+      第三步 获取参数
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#payload" class="md-nav__link">
+    <span class="md-ellipsis">
+      最终payload
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_18" class="md-nav__link">
+    <span class="md-ellipsis">
+      本周训练题
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../WEB-3/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    SQL Injection
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    PWN
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            PWN
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../PWN/intro/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    简介
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../PWN/%E5%89%8D%E7%BD%AE%E5%9F%BA%E7%A1%80/C%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    C语言前置基础(基础篇)
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../PWN/%E5%89%8D%E7%BD%AE%E5%9F%BA%E7%A1%80/C%E8%AF%AD%E8%A8%80%E8%BF%9B%E9%98%B6/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    C语言前置基础(进阶篇)
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../PWN/%E5%89%8D%E7%BD%AE%E5%9F%BA%E7%A1%80/Linux%E5%9F%BA%E7%A1%80%E5%8F%8A%E5%B7%A5%E5%85%B7/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Linux前置基础及工具
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../PWN/%E6%A0%BC%E5%BC%8F%E5%8C%96%E5%AD%97%E7%AC%A6%E4%B8%B2%E6%BC%8F%E6%B4%9E/%E6%A0%BC%E5%BC%8F%E5%8C%96%E5%AD%97%E7%AC%A6%E4%B8%B2%E6%BC%8F%E6%B4%9E%E7%BB%BC%E5%90%88%E8%AE%AD%E7%BB%83/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    格式化字符串漏洞
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../PWN/%E6%A0%88%E6%BA%A2%E5%87%BA/%E6%A0%88%E6%BA%A2%E5%87%BA/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    栈溢出
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../PWN/%E6%95%B4%E6%95%B0%E6%BA%A2%E5%87%BA%E6%BC%8F%E6%B4%9E/%E6%95%B4%E6%95%B0%E6%BA%A2%E5%87%BA/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    整数溢出
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    REVERSE
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            REVERSE
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../REVERSE/intro/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    简介
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    集训安排
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            集训安排
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../training/2020Autumn/2020AutumnOutline/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    2020秋季集训
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../training/2022Autumn/%E7%A7%8B%E5%AD%A3%E5%9F%B9%E8%AE%AD%E5%A4%A7%E7%BA%B2/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    2022秋季集训
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../training/2025Spring/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    2025春季集训
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../training/2025Autumn/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    2025秋季集训
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      目录
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="目录">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      一、基本介绍
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#php" class="md-nav__link">
+    <span class="md-ellipsis">
+      二、PHP特性
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      三、文件包含
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      四、文件上传
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      五、命令执行
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      本周训练题
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      一、基本介绍
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="一、基本介绍">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#php_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      PHP介绍
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#php_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      php是世界上最好的语言
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      安全问题严重
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#php_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      二、PHP特性
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="二、PHP特性">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      弱类型比较
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#11" class="md-nav__link">
+    <span class="md-ellipsis">
+      1=="1"
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1=="1"">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#hash" class="md-nav__link">
+    <span class="md-ellipsis">
+      魔法HASH
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      内置函数的参数的松散性
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1-md5" class="md-nav__link">
+    <span class="md-ellipsis">
+      例子1 md5()
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-switch" class="md-nav__link">
+    <span class="md-ellipsis">
+      例子2 switch()
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_11" class="md-nav__link">
+    <span class="md-ellipsis">
+      三、文件包含
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="三、文件包含">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_12" class="md-nav__link">
+    <span class="md-ellipsis">
+      四、绕过上传检查
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_13" class="md-nav__link">
+    <span class="md-ellipsis">
+      主要题型：
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="主要题型：">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_14" class="md-nav__link">
+    <span class="md-ellipsis">
+      绕过前端扩展名和检测文件类型
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_15" class="md-nav__link">
+    <span class="md-ellipsis">
+      五、命令执行
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#preg_replace" class="md-nav__link">
+    <span class="md-ellipsis">
+      preg_replace() 代码执行
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#preg_match" class="md-nav__link">
+    <span class="md-ellipsis">
+      preg_match() 代码执行
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="preg_match() 代码执行">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_16" class="md-nav__link">
+    <span class="md-ellipsis">
+      异或的概念
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#php-function-b-echo-hello-angel_kitty-_-__-__" class="md-nav__link">
+    <span class="md-ellipsis">
+      &lt;?php function B(){ echo &quot;Hello Angel_Kitty&quot;; } $_++; $__= &quot;?&quot; ^ &quot;}&quot;; $__(); ?&gt;
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="<?php function B(){ echo "Hello Angel_Kitty"; } $_++; $__= "?" ^ "}"; $__(); ?>">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_get" class="md-nav__link">
+    <span class="md-ellipsis">
+      第一步 构造 _GET 读取
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_get_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      第二步 获取 _GET 参数
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_17" class="md-nav__link">
+    <span class="md-ellipsis">
+      第三步 获取参数
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#payload" class="md-nav__link">
+    <span class="md-ellipsis">
+      最终payload
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_18" class="md-nav__link">
+    <span class="md-ellipsis">
+      本周训练题
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+  
+  
+
+
+<h1 id="web-php">Web 之 PHP代码审计<a class="headerlink" href="#web-php" title="Permanent link">&para;</a></h1>
+<hr />
+<h2 id="_1">目录<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
+<h3 id="_2">一、基本介绍<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h3>
+<h3 id="php">二、PHP特性<a class="headerlink" href="#php" title="Permanent link">&para;</a></h3>
+<h3 id="_3">三、文件包含<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h3>
+<h3 id="_4">四、文件上传<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h3>
+<h3 id="_5">五、命令执行<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h3>
+<h3 id="_6">本周训练题<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h3>
+<hr />
+<h2 id="_7">一、基本介绍<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h2>
+<hr />
+<h3 id="php_1">PHP介绍<a class="headerlink" href="#php_1" title="Permanent link">&para;</a></h3>
+<hr />
+<p>PHP即“超文本预处理器”，是一种通用开源脚本语言。PHP是在服务器端执行的脚本语言，与C语言类似，是常用的网站编程语言。PHP独特的语法混合了C、Java、Perl以及 PHP 自创的语法。利于学习，使用广泛，主要适用于Web开发领域。</p>
+<hr />
+<p><img alt="center" src="./imgs/php_number1.PNG" /></p>
+<hr />
+<h2 id="php_2">php是世界上最好的语言<a class="headerlink" href="#php_2" title="Permanent link">&para;</a></h2>
+<hr />
+<h2 id="_8">安全问题严重<a class="headerlink" href="#_8" title="Permanent link">&para;</a></h2>
+<p>历史上除C语言外，第二多的漏洞数量
+ CVE库，6749条漏洞记录，2020年已产生138条</p>
+<hr />
+<p>PHP代码审计主要分为了静态分析和动态分析两种：
+- 静态分析是在不运行PHP代码的情况下，对PHP源码进行查看分析，从中找出可能存在的缺陷和漏洞
+- 动态分析是将PHP代码运行起来，通过观察代码运行的状态，如变量内容、函数执行结果等，达到明确代码流程，分析函数逻辑等目的，并从中挖掘出漏洞</p>
+<hr />
+<p>PHP代码审计是 Web 中最为重要的一块，题目类型大概有：</p>
+<ol>
+<li>文件包含</li>
+<li>文件上传</li>
+<li>变量覆盖</li>
+<li>命令执行</li>
+</ol>
+<hr />
+<h2 id="php_3">二、PHP特性<a class="headerlink" href="#php_3" title="Permanent link">&para;</a></h2>
+<hr />
+<h3 id="_9">弱类型比较<a class="headerlink" href="#_9" title="Permanent link">&para;</a></h3>
+<h2 id="11">1=="1"<a class="headerlink" href="#11" title="Permanent link">&para;</a></h2>
+<hr />
+<div class="highlight"><pre><span></span><code>1 == &quot;1&quot;
+123 ==&#39;123asd&#39;
+&quot;1&quot; == true
+&quot;0&quot; == false
+-1 == true
+true == &quot;php&quot;
+0 == NULL
+0 == &quot;php&quot;
+0 == &quot;&quot;
+NULL == false
+&quot;&quot; == false
+array() == false
+array() == NULL
+</code></pre></div>
+<hr />
+<p>演示</p>
+<hr />
+<h3 id="hash">魔法HASH<a class="headerlink" href="#hash" title="Permanent link">&para;</a></h3>
+<hr />
+<div class="highlight"><pre><span></span><code>&quot;0e132456789&quot;==&quot;0e7124511451155&quot;
+&quot;0e123456abc&quot;==&quot;0e1dddada&quot;
+&quot;0e1abc&quot;==&quot;0&quot;
+</code></pre></div>
+<p>在PHP进行比较运算时，如果遇到<code>0e</code>开头的字符串，会将这种字符串解析为科学计数法。所以上面例子中 2 个数的值都是 0 因而就相等了</p>
+<hr />
+<h3 id="_10">内置函数的参数的松散性<a class="headerlink" href="#_10" title="Permanent link">&para;</a></h3>
+<hr />
+<p>内置函数的松散性说的是，调用函数时给函数传递函数无法接受的参数类型</p>
+<hr />
+<h2 id="1-md5">例子1 <strong>md5()</strong><a class="headerlink" href="#1-md5" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code>$array1[] = array(
+ &quot;foo&quot; =&gt; &quot;bar&quot;,
+ &quot;bar&quot; =&gt; &quot;foo&quot;,
+);
+$array2 = array(&quot;foo&quot;, &quot;bar&quot;, &quot;hello&quot;, &quot;world&quot;);
+var_dump(md5($array1)==md5($array2));
+</code></pre></div>
+<p>PHP 手册中的 md5（）函数的描述是 string md5 ( string $str [, bool $raw_output = false ] )，md5() 中的需要是一个 string 类型的参数。但是当你传递一个 array 时，md5() 不会报错，只是会无法正确地求出 array 的 md5 值，这样就会导致任意 2 个 array 的 md5 值都会相等</p>
+<hr />
+<h2 id="2-switch">例子2 <strong>switch()</strong><a class="headerlink" href="#2-switch" title="Permanent link">&para;</a></h2>
+<p>如果 <code>switch()</code>是数字类型的 case 的判断时，switch 会将其中的参数转换为 int 类型。如下:</p>
+<div class="highlight"><pre><span></span><code>$i =&quot;2abc&quot;;
+switch ($i) {
+case 0:
+case 1:
+case 2:
+ echo &quot;i is less than 3 but not negative&quot;;
+ break;
+case 3:
+ echo &quot;i is 3&quot;;
+}
+</code></pre></div>
+<p>这个时候程序输出的是<code>i is less than 3 but not negative</code>，是由于<code>switch()</code>函数将 $i 进行了类型转换，转换结果为 2</p>
+<hr />
+<h2 id="_11">三、文件包含<a class="headerlink" href="#_11" title="Permanent link">&para;</a></h2>
+<hr />
+<p>初衷：将另一个源文件的全部内容包含到当前源文件中进行使用，通常也称为引入外部文件。引用外部文件可以减少代码的重用性</p>
+<p>漏洞：通过 PHP 的函数引入文件时，由于传入的文件名没有经过合理的校验，从而操作了预想之外的文件，就可能导致意外的文件泄露甚至恶意的代码注入</p>
+<hr />
+<p>常见漏洞函数：<code>include()</code>，<code>include_once()</code>，<code>require()</code>，<code>require_once()</code>，<code>fopen()</code>，<code>readfile()</code>等</p>
+<hr />
+<div class="highlight"><pre><span></span><code>&lt;?php
+$file = $_GET[&#39;file&#39;];
+if (file_exists(&#39;/home/wwwrun/&#39;.$file.&#39;.php&#39;)) {
+  include &#39;/home/wwwrun/&#39;.$file.&#39;.php&#39;;
+}
+?&gt;
+</code></pre></div>
+<hr />
+<h3 id="_12">四、绕过上传检查<a class="headerlink" href="#_12" title="Permanent link">&para;</a></h3>
+<hr />
+<p>文件上传漏洞是指用户上传了一个可执行脚本文件，并通过此文件获得了执行服器端命令的能力。在大多数情况下，文件上传漏洞一般是指上传 WEB 脚本能够被服务器解析的问题，也就是所谓的 webshell 问题。</p>
+<hr />
+<p>完成这一攻击需要这样几个条件:
+1. 上传的文件能够被 WEB 容器执行
+2. 用户能从 WEB 上访问这个文件
+3. 如果上传的文件被安全检查、格式化、图片压缩等功能改变了内容，则可能导致攻击失败</p>
+<hr />
+<h2 id="_13">主要题型：<a class="headerlink" href="#_13" title="Permanent link">&para;</a></h2>
+<ol>
+<li>前端检查扩展名</li>
+<li><code>Content-Type</code>检测文件类型</li>
+<li>服务端添加后缀</li>
+<li>Apache解析</li>
+<li>ISS解析</li>
+<li>PHP CGI路径解析</li>
+</ol>
+<hr />
+<h3 id="_14">绕过前端扩展名和检测文件类型<a class="headerlink" href="#_14" title="Permanent link">&para;</a></h3>
+<p>绕过前端检查扩展名
+<code>Content-Type</code>绕过</p>
+<ul>
+<li><a href="https://buuoj.cn/challenges#[ACTF2020%20%E6%96%B0%E7%94%9F%E8%B5%9B]Upload">ACTF2020 新生赛</a></li>
+</ul>
+<hr />
+<h3 id="_15">五、命令执行<a class="headerlink" href="#_15" title="Permanent link">&para;</a></h3>
+<hr />
+<h3 id="preg_replace">preg_replace() 代码执行<a class="headerlink" href="#preg_replace" title="Permanent link">&para;</a></h3>
+<p><code>preg_replace()</code>的第一个参数如果存在 /e 模式修饰符，则允许代码执行</p>
+<p><div class="highlight"><pre><span></span><code>&lt;?php
+$var = &quot;&lt;tag&gt;phpinfo()&lt;/tag&gt;&quot;;
+preg_replace(&quot;/&lt;tag&gt;(.*?)&lt;\/tag&gt;/e&quot;, &quot;addslashes(\\1)&quot;, $var);
+?&gt;
+</code></pre></div>
+如果没有<code>/e</code>修饰符，可以尝试<code>%00</code>截断</p>
+<hr />
+<h3 id="preg_match">preg_match() 代码执行<a class="headerlink" href="#preg_match" title="Permanent link">&para;</a></h3>
+<p><code>preg_match</code>执行的是匹配正则表达式，如果匹配成功，则允许代码执行</p>
+<hr />
+<p>演示</p>
+<hr />
+<div class="highlight"><pre><span></span><code>&lt;?php
+include &#39;flag.php&#39;;
+if(isset($_GET[&#39;code&#39;])){
+    $code = $_GET[&#39;code&#39;];
+    if(strlen($code)&gt;40){
+        die(&quot;Long.&quot;);
+    }
+    if(preg_match(&quot;/[A-Za-z0-9]+/&quot;,$code)){
+        die(&quot;NO.&quot;);
+    }
+    @eval($code);
+}else{
+    highlight_file(__FILE__);
+}
+//$hint =  &quot;php function getFlag() to get flag&quot;;
+?&gt;
+</code></pre></div>
+<hr />
+<p>限制条件：
+1. 不能使用<code>A-Z</code>、<code>a-z</code>、<code>0-9</code>
+2. 字符长度不得大于40</p>
+<p>目标：绕过限制，利用 PHP 允许动态函数执行的特点，拼接出一个函数名——<code>getFlag</code>，然后动态执行该代码即可</p>
+<hr />
+<h4 id="_16">异或的概念<a class="headerlink" href="#_16" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code>&lt;?php
+    echo &quot;A&quot;^&quot;?&quot;;
+?&gt;
+</code></pre></div>
+<hr />
+<p>在 PHP 中，两个变量进行异或时，先会将字符串转换成 ASCII 值，再将 ASCII 值转换成二进制再进行异或，异或完，又将结果从二进制转换成了 ASCII 值，再将 ASCII 值转换成字符串</p>
+<p><code>A</code>的 ASCII 值是<code>65</code>，对应的二进制值是<code>01000001</code></p>
+<p><code>?</code>的 ASCII 值是<code>63</code>，对应的二进制值是<code>00111111</code></p>
+<p>异或的二进制的值是<code>01111110‬</code>，对应的 ASCII 值是<code>126</code>，对应的字符串的值就是<code>~</code></p>
+<hr />
+<p><code>PHP</code>是弱类型的语言，也就是说在<code>PHP</code>中我们可以不预先声明变量的类型，而直接声明一个变量并进行初始化或赋值操作。正是由于<code>PHP</code>弱类型的这个特点，我们对<code>PHP</code>的变量类型进行隐式的转换，并利用这个特点进行一些非常规的操作。如将整型转换成字符串型，将布尔型当作整型，或者将字符串当作函数来处理</p>
+<hr />
+<h2 id="php-function-b-echo-hello-angel_kitty-_-__-__"><div class="highlight"><pre><span></span><code>&lt;?php
+    function B(){
+        echo &quot;Hello Angel_Kitty&quot;;
+    }
+    $_++;
+    $__= &quot;?&quot; ^ &quot;}&quot;;
+    $__();
+?&gt;
+</code></pre></div><a class="headerlink" href="#php-function-b-echo-hello-angel_kitty-_-__-__" title="Permanent link">&para;</a></h2>
+<ul>
+<li><code>$_++</code>; 这行代码的意思是对变量名为<code>"_"</code>的变量进行自增操作，在<code>PHP</code>中未定义的变量默认值<code>null</code>，<code>null==false==0</code>，我们可以在不使用任何数字的情况下，通过对未定义变量的自增操作来得到一个数字</li>
+<li><code>$__="?" ^ "}";</code>对字符<code>?</code>和<code>}</code>进行异或运算，得到结果<code>B</code>赋给变量名为<code>__ (两个下划线)</code>的变量</li>
+<li><code>$ __ ();</code>通过上面的赋值操作，变量<code>$__</code>的值为<code>B</code>，所以这行可以看作是<code>B()</code>，在<code>PHP</code>中，这行代码表示调用函数<code>B</code>，所以执行结果为<code>Hello Angel_Kitty</code>。在<code>PHP</code>中，我们可以将字符串当作函数来处理</li>
+</ul>
+<hr />
+<h4 id="_get">第一步 构造 _GET 读取<a class="headerlink" href="#_get" title="Permanent link">&para;</a></h4>
+<p>使用php中可以执行命令的反引号`和Linux下面的通配符?</p>
+<ul>
+<li><code>?</code>代表匹配一个字符</li>
+<li>`表示执行命令</li>
+<li>
+<p><code>"</code>对特殊字符串进行解析</p>
+<p><code>"`{{{"^"?&lt;&gt;/";</code> == <code>_GET</code></p>
+</li>
+</ul>
+<hr />
+<h4 id="_get_1">第二步 获取 _GET 参数<a class="headerlink" href="#_get_1" title="Permanent link">&para;</a></h4>
+<p><code>${$_}[_]();</code> == <code>$_GET[_]()</code></p>
+<h4 id="_17">第三步 获取参数<a class="headerlink" href="#_17" title="Permanent link">&para;</a></h4>
+<p><code>$_=getFlag</code></p>
+<hr />
+<h4 id="payload">最终payload<a class="headerlink" href="#payload" title="Permanent link">&para;</a></h4>
+<p><code>code=$_="`{{{"^"?&lt;&gt;/";${$_}[_]();&amp;_=getFlag</code></p>
+<hr />
+<h3 id="_18">本周训练题<a class="headerlink" href="#_18" title="Permanent link">&para;</a></h3>
+<ul>
+<li><a href="http://81.70.159.127/Web1/index.php">练习1 PHP入门</a></li>
+<li><a href="http://81.70.159.127/Web2/index.php">练习2 今天睡够了么？</a></li>
+<li><a href="http://81.70.159.127/Web3/index.php">练习3 havefun,funhash</a></li>
+<li><a href="http://81.70.159.127/Web4/index.html">练习4 休息一下吧打工人</a></li>
+<li><a href="http://81.70.159.127/Web4/index.html">练习5 绕过练习</a></li>
+<li><a href="http://81.70.159.127/Web4/index.html">练习6 多吃几个 备注:源码在课件压缩包里</a></li>
+</ul>
+<hr />
+<h1 id="_19"><!-- fit --> 谢谢大家！<a class="headerlink" href="#_19" title="Permanent link">&para;</a></h1>
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../../..", "features": [], "search": "../../../assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.1e8ae164.min.js"></script>
+      
+        <script src="../../../_static/js/extra.js?v=16"></script>
+      
+        <script src="https://cdnjs.loli.net/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+      
+    
+  </body>
+</html>

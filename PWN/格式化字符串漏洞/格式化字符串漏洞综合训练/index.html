@@ -1,0 +1,1384 @@
+
+<!doctype html>
+<html lang="zh" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../../%E5%89%8D%E7%BD%AE%E5%9F%BA%E7%A1%80/Linux%E5%9F%BA%E7%A1%80%E5%8F%8A%E5%B7%A5%E5%85%B7/">
+      
+      
+        <link rel="next" href="../../%E6%A0%88%E6%BA%A2%E5%87%BA/%E6%A0%88%E6%BA%A2%E5%87%BA/">
+      
+      
+      <link rel="icon" href="../../../favicon.ico">
+      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.5.17">
+    
+    
+      
+        <title>格式化字符串漏洞 - CUC CTF-Wiki</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.bcfcd587.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Fira+Sans:300,300i,400,400i,700,700i%7CFira+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Fira Sans";--md-code-font:"Fira Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../_static/css/extra.css?v=12">
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="white" data-md-color-accent="red">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#_1" class="md-skip">
+          跳转至
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="页眉">
+    <a href="../../.." title="CUC CTF-Wiki" class="md-header__button md-logo" aria-label="CUC CTF-Wiki" data-md-component="logo">
+      
+  <img src="../../../images/logo.jpg" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            CUC CTF-Wiki
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              格式化字符串漏洞
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="搜索" placeholder="搜索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="查找">
+        
+        <button type="reset" class="md-search__icon md-icon" title="清空当前内容" aria-label="清空当前内容" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            正在初始化搜索引擎
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/cuccs/ctf-wiki" title="前往仓库" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    CUC CTF-Wiki
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="导航栏" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="CUC CTF-Wiki" class="md-nav__button md-logo" aria-label="CUC CTF-Wiki" data-md-component="logo">
+      
+  <img src="../../../images/logo.jpg" alt="logo">
+
+    </a>
+    CUC CTF-Wiki
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/cuccs/ctf-wiki" title="前往仓库" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    CUC CTF-Wiki
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_1" id="__nav_1_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    首页
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_1">
+            <span class="md-nav__icon md-icon"></span>
+            首页
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    主页
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../intro/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    关于本项目
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../FAQ/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    F.A.Q
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    MISC
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            MISC
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../MISC/intro/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    简介
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../MISC/MISC-2/MISC-2/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    信息搜集 && 编码
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../MISC/MISC-1/%E6%95%B0%E5%AD%97%E5%8F%96%E8%AF%81_%E9%9A%90%E5%86%99%E5%88%86%E6%9E%90/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    数字取证 && 隐写分析
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    CRYPTO
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            CRYPTO
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../CRYPTO/intro/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    简介
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../CRYPTO/%E7%AC%AC%E4%B8%89%E5%91%A8-Crypto/Crypto/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    古典密码、对称加密、非对称加密
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    WEB
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            WEB
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../WEB/intro/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    简介
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../WEB/WEB-1/XSS%28%E8%B7%A8%E7%AB%99%E7%82%B9%E8%84%9A%E6%9C%AC%E6%94%BB%E5%87%BB%29/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    XSS
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../WEB/WEB-2/Web%20PHP%20audit/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    PHP audit
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../WEB/WEB-3/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    SQL Injection
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    PWN
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            PWN
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../intro/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    简介
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E5%89%8D%E7%BD%AE%E5%9F%BA%E7%A1%80/C%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    C语言前置基础(基础篇)
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E5%89%8D%E7%BD%AE%E5%9F%BA%E7%A1%80/C%E8%AF%AD%E8%A8%80%E8%BF%9B%E9%98%B6/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    C语言前置基础(进阶篇)
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E5%89%8D%E7%BD%AE%E5%9F%BA%E7%A1%80/Linux%E5%9F%BA%E7%A1%80%E5%8F%8A%E5%B7%A5%E5%85%B7/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Linux前置基础及工具
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    格式化字符串漏洞
+  </span>
+  
+
+      </a>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E6%A0%88%E6%BA%A2%E5%87%BA/%E6%A0%88%E6%BA%A2%E5%87%BA/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    栈溢出
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E6%95%B4%E6%95%B0%E6%BA%A2%E5%87%BA%E6%BC%8F%E6%B4%9E/%E6%95%B4%E6%95%B0%E6%BA%A2%E5%87%BA/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    整数溢出
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    REVERSE
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            REVERSE
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../REVERSE/intro/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    简介
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    集训安排
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            集训安排
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../training/2020Autumn/2020AutumnOutline/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    2020秋季集训
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../training/2022Autumn/%E7%A7%8B%E5%AD%A3%E5%9F%B9%E8%AE%AD%E5%A4%A7%E7%BA%B2/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    2022秋季集训
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../training/2025Spring/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    2025春季集训
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../training/2025Autumn/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    2025秋季集训
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+  
+  
+
+
+<style>
+section {
+  font-family: 'Microsoft YaHei', 'SimHei', sans-serif;
+  font-size: 30px;
+}
+</style>
+
+<h1 id="_1">格式化字符串漏洞<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h1>
+<hr />
+<h1 id="_2">目录<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h1>
+<ul>
+<li>1 格式化字符串漏洞原理</li>
+<li>1.1 格式化字符串函数介绍<ul>
+<li>1.1.1 格式化字符串函数</li>
+<li>1.1.2 格式化字符串 </li>
+<li>1.1.3 参数</li>
+</ul>
+</li>
+<li>1.2 漏洞成因</li>
+<li>1.3 格式化字符串漏洞利用<ul>
+<li>1.3.1 使程序崩溃</li>
+<li>1.3.2 查看栈内容</li>
+<li>1.3.3 查看任意地址内容</li>
+</ul>
+</li>
+<li>2 格式化字符串漏洞练习题</li>
+</ul>
+<hr />
+<h1 id="1">1 格式化字符串漏洞原理<a class="headerlink" href="#1" title="Permanent link">&para;</a></h1>
+<hr />
+<h1 id="11">1.1 格式化字符串函数介绍<a class="headerlink" href="#11" title="Permanent link">&para;</a></h1>
+<p>格式化字符串函数可以接受<strong>可变数量的参数</strong>，并将<strong>第一个参数作为格式化字符串，根据其来解析之后的参数</strong>。</p>
+<p>通俗来说，<strong>格式化字符串函数就是将计算机内存中表示的数据转化为我们人类可读的字符串格式</strong>。</p>
+<p>几乎所有的 C/C++ 程序都会利用格式化字符串函数来<strong>输出信息</strong>，<strong>调试程序</strong>，或者<strong>处理字符串</strong>。</p>
+<hr />
+<p>一般来说，格式化字符串在利用的时候主要分为三个部分：<strong>格式化字符串函数 、格式化字符串 、后续参数(可选)</strong></p>
+<p><strong>举个栗子</strong></p>
+<p><center><img src="./img/printf_example.jpg" width="1000"></center></p>
+<!-- 
+
+此处的格式化字符串调用例子中
+格式化字符串函数为 printf
+格式化字符串为 " Welcode to  %d %s "
+其余参数为可选参数
+
+ -->
+
+<hr />
+<h1 id="111">1.1.1 格式化字符串函数<a class="headerlink" href="#111" title="Permanent link">&para;</a></h1>
+<p><strong>输入函数</strong>
+  - scanf</p>
+<p><strong>输出函数</strong></p>
+<table>
+<thead>
+<tr>
+<th>函数</th>
+<th>基本介绍</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>printf</td>
+<td>输出到 stdout</td>
+</tr>
+<tr>
+<td>fprintf</td>
+<td>输出到指定 FILE 流</td>
+</tr>
+<tr>
+<td>syslog</td>
+<td>输出日志</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h1 id="112">1.1.2 格式化字符串<a class="headerlink" href="#112" title="Permanent link">&para;</a></h1>
+<div class="highlight"><pre><span></span><code><span class="o">%</span><span class="p">[</span><span class="n">parameter</span><span class="p">][</span><span class="n">flags</span><span class="p">][</span><span class="n">field</span><span class="w"> </span><span class="n">width</span><span class="p">][.</span><span class="n">precision</span><span class="p">][</span><span class="n">length</span><span class="p">]</span><span class="n">type</span>
+</code></pre></div>
+<p><strong>type</strong></p>
+<!-- 需要重点关注的 -->
+
+<ul>
+<li>d/i，有符号整数</li>
+<li>u，无符号整数</li>
+<li>x/X，16 进制 unsigned int 。x 使用小写字母；X 使用大写字母。</li>
+<li>n，不输出字符，但是把已经<strong>成功输出</strong>的字符个数写入对应的整型指针参数所指的变量。</li>
+</ul>
+<hr />
+<h1 id="113">1.1.3 参数<a class="headerlink" href="#113" title="Permanent link">&para;</a></h1>
+<p>就是相应的要输出的变量</p>
+<!-- ---
+
+我们再继续以上面的为例子进行介绍,对于上面的例子，在进入 printf 函数的之前 (即还没有调用 printf)，栈上的布局由高地址到低地址依次如下
+
+<div class="highlight"><pre><span></span><code><span class="n">some</span><span class="w"> </span><span class="n">value</span>
+<span class="n">CUC</span><span class="w"> </span><span class="n">CTF</span><span class="w"> </span>
+<span class="mi">2020</span>
+<span class="n">addr</span><span class="w"> </span><span class="n">of</span><span class="w"> </span><span class="n">format</span><span class="w"> </span><span class="n">string</span><span class="o">:</span><span class="w"> </span><span class="n">Welcode</span><span class="w"> </span><span class="n">to</span><span class="w">  </span><span class="o">%</span><span class="n">d</span><span class="w"> </span><span class="o">%</span><span class="n">s</span>
+
+<span class="err">```</span><span class="w"> </span><span class="o">--&gt;</span>
+
+<span class="o">---</span>
+
+<span class="cp"># 1.2 漏洞成因</span>
+<span class="o">---</span>
+
+<span class="o">&lt;</span><span class="n">center</span><span class="o">&gt;&lt;</span><span class="n">span</span><span class="o">&gt;</span><span class="n">printf</span><span class="w"> </span><span class="n">格式化字符串函数执行流图</span><span class="o">&lt;/</span><span class="n">span</span><span class="o">&gt;&lt;/</span><span class="n">center</span><span class="o">&gt;</span>
+
+<span class="o">&lt;</span><span class="n">center</span><span class="o">&gt;&lt;</span><span class="n">img</span><span class="w"> </span><span class="n">src</span><span class="o">=</span><span class="s">&quot;./img/流程图.jpg&quot;</span><span class="w"> </span><span class="o">&gt;&lt;/</span><span class="n">center</span><span class="o">&gt;</span>
+
+<span class="o">---</span>
+
+<span class="n">那么假设</span><span class="err">，</span><span class="n">此时我们在编写程序时候</span><span class="err">，</span><span class="n">写成了如下形式</span><span class="err">：</span>
+
+<span class="err">```</span><span class="n">python</span>
+<span class="n">printf</span><span class="p">(</span><span class="s">&quot;Welcode to  %d %s&quot;</span><span class="p">);</span>
+</code></pre></div>
+</br>
+<!-- 此时我们可以发现我们并没有提供参数，那么程序会如何运行呢？程序照样会运行，会将栈上存储格式化字符串地址上面的 2 个变量分别解析为
+解析其内容对应的整形值
+解析其地址对应的字符串
+-->
+
+<!-- 对于 1 来说倒还无妨，但是对于对于 2 来说，如果提供了一个不可访问地址，比如 0，那么程序就会因此而崩溃。 -->
+
+<p>执行输出结果:</p>
+<p><center><img src="./img/printf_exploit_test.PNG" ></center></p>
+<p></br></p>
+<p>漏洞原因：格式字符串<strong>要求的参数</strong>和<strong>实际提供的参数</strong>不匹配</p>
+<hr />
+<p><strong>为什么可以通过编译？</strong>
+- 因为 printf() 函数的参数被定义为<strong>可变</strong>的。</p>
+<ul>
+<li>
+<p>为了发现不匹配的情况，编译器需要理解 printf() 是怎么工作的和格式字符串是什么。然而，编译器并不知道这些。</p>
+</li>
+<li>
+<p>有时格式字符串并不是固定的，它可能在程序执行中<strong>动态生成</strong>。</p>
+</li>
+</ul>
+<hr />
+<p><strong>printf() 函数自己可以发现不匹配吗？</strong></p>
+<p>printf() 函数从栈中取出参数，如果它需要 3 个，那它就取出 3 个。除非栈的边界被标记了，否则 printf() 是不会知道它取出的参数比提供给它的参数多了。然而并没有这样的标记。</p>
+<hr />
+<h1 id="13">1.3 格式化字符串漏洞利用<a class="headerlink" href="#13" title="Permanent link">&para;</a></h1>
+<hr />
+<p>实验环境</p>
+<div class="highlight"><pre><span></span><code>ubuntu<span class="w"> </span><span class="m">16</span>.04
+gdb<span class="w">  </span><span class="m">7</span>.8
+gcc<span class="w"> </span><span class="m">5</span>.4.0
+</code></pre></div>
+<hr />
+<p>例如，我们给定如下程序</p>
+<p><div class="highlight"><pre><span></span><code><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;stdio.h&gt;</span>
+<span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="kt">char</span><span class="w"> </span><span class="n">s</span><span class="p">[</span><span class="mi">100</span><span class="p">];</span>
+<span class="w">  </span><span class="kt">int</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="n">b</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">0x22222222</span><span class="p">,</span><span class="w"> </span><span class="n">c</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">-1</span><span class="p">;</span>
+<span class="w">  </span><span class="n">scanf</span><span class="p">(</span><span class="s">&quot;%s&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">s</span><span class="p">);</span>
+<span class="w">  </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;%08x.%08x.%08x.%s</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">a</span><span class="p">,</span><span class="w"> </span><span class="n">b</span><span class="p">,</span><span class="w"> </span><span class="n">c</span><span class="p">,</span><span class="w"> </span><span class="n">s</span><span class="p">);</span>
+<span class="w">  </span><span class="n">printf</span><span class="p">(</span><span class="n">s</span><span class="p">);</span>
+<span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+编译</p>
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>gcc<span class="w"> </span>-m32<span class="w"> </span>-fno-stack-protector<span class="w"> </span>-no-pie<span class="w"> </span>-o<span class="w"> </span>leakmemory<span class="w"> </span>leakmemory.c
+</code></pre></div>
+<hr />
+<h3 id="131">1.3.1 使程序崩溃<a class="headerlink" href="#131" title="Permanent link">&para;</a></h3>
+<p>崩溃原因是因为栈上不可能每个值都对应了合法的地址，所以总是会有某个地址可以使得程序崩溃（地址越界访问）。</p>
+<p><center><img src="./img/格式化字符串崩溃.PNG" ></center></p>
+<hr />
+<h3 id="132">1.3.2 查看栈内容<a class="headerlink" href="#132" title="Permanent link">&para;</a></h3>
+<p>首先测试一下执行效果：</p>
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>./leakmemory
+
+%08x.%08x.%08x
+</code></pre></div>
+<p>执行结果
+<div class="highlight"><pre><span></span><code>./leakmemory
+%08x.%08x.%08x
+<span class="m">00000001</span>.22222222.ffffffff.%08x.%08x.%08x
+ffbbe980.000000c2.f7e4c79b
+</code></pre></div></p>
+<!-- <center><img src="./img/leak_memory_1.PNG" ></center> -->
+
+<hr />
+<p>为了更加细致的观察,使用 GDB 调试。</p>
+<div class="highlight"><pre><span></span><code><span class="c1">#使用 gdb 进行调试</span>
+<span class="nv">$gdb</span><span class="w"> </span>leakmemory
+<span class="c1"># 下断点</span>
+gdb-peda$<span class="w"> </span>b<span class="w"> </span><span class="nb">printf</span>
+<span class="w">    </span>Breakpoint<span class="w"> </span><span class="m">1</span><span class="w"> </span>at<span class="w"> </span>0x8048330
+<span class="c1">#开始执行程序</span>
+gdb-peda$<span class="w"> </span>r
+<span class="w">    </span>Starting<span class="w"> </span>program:<span class="w"> </span>/home/giantbranch/tmp/leakmemory
+<span class="w">    </span>ffb4e190.000000c2.f7d8f79bgiantbranch@ubuntu:~/tmp$
+</code></pre></div>
+<!-- 此时，程序等待我们的输入，这时我们输入 %08x.%08x.%08x，然后敲击回车，是程序继续运行，可以看出程序首先断在了第一次调用 printf 函数的位置 -->
+
+<p>程序<strong>断在 printf 函数首次调用位置</strong>，查看栈空间。</p>
+<hr />
+<p><center><img src="./img/leak_memory_debug_1.png" ></center></p>
+<!-- 可以看出，此时已经进入了 printf 函数中，栈中第一个变量为返回地址，第二个变量为格式化字符串的地址，第三个变量为 a 的值，第四个变量为 b 的值，第五个变量为 c 的值，第六个变量为我们输入的格式化字符串对应的地址。继续运行程序 -->
+
+<hr />
+<p>继续执行，程序输出每个变量对应的值。并且断在了下一个 printf 处。</p>
+<!-- 此时，由于格式化字符串为 %x%x%x，所以，程序 会将栈上的 0xffffcd04 及其之后的数值分别作为第一，第二，第三个参数按照 int 型进行解析，分别输出。继续运行，我们可以得到如下结果去，确实和想象中的一样。 -->
+
+<p><center><img src="./img/leak_memory_debug_2.PNG"  ></center></p>
+<hr />
+<p>继续执行，由于格式化字符串为 %x%x%x，所以，程序会将栈上的<code>0xffffd304</code>及之后的数值分别作为 1、2、3 个参数按照 int 型进行解析，分别输出。</p>
+<p><center><img src="./img/leak_memory_debug_3.PNG"  ></center></p>
+<hr />
+<h3 id="132-n1">1.3.2 直接获取栈中被视为第 n+1 个参数的值<a class="headerlink" href="#132-n1" title="Permanent link">&para;</a></h3>
+<p><code>%n$x</code></p>
+<p></br>
+为什么是第 n+1 个参数?</p>
+<!-- 格式化参数里面的 n 指的是该格式化字符串对应的**第 n 个输出参数**，
+那相对于调用函数来说，**第 1 个参数是格式化字符串，不输出** , 就是第 n+1 个参数了。 -->
+
+<p><center><img src="./img/n+1.jpg"  ></center></p>
+<hr />
+<p>重新调试运行，可以看出，我们确实获得了 <strong>printf 的第 4 个参数</strong>所对应的值 f7e8979b。</p>
+<p><center><img src="./img/leak_memory_debug_4.PNG"  ></center></p>
+<hr />
+<h3 id="133">1.3.3 查看任意内存的地址<a class="headerlink" href="#133" title="Permanent link">&para;</a></h3>
+<p>原理：<strong>显示指定解析地址的内存</strong></p>
+<p>例如：printf 参数存储字符串起始地址，输出 %s 时，读取参数内容并将其作为字符串起始地址,直到遇到一个空字符,读取结束。</p>
+<p><center><img src="./img/string_pointer.PNG"  ></center></p>
+<!-- 使用 %s 显示参数，指针所指定的地址的内存，将它作为一个 ASCII 字符串处理，直到遇到一个空字符。如果攻击者能够操纵这个参数指针指向一个特定的地址，那么 %s 就会输出该位置的内存内容。 -->
+
+<hr />
+<h3 id="1_1">(1). 获取输入参数在栈上的偏移<a class="headerlink" href="#1_1" title="Permanent link">&para;</a></h3>
+<p>由 0x41414141 处所在的位置可以看出我们的格式化字符串的起始地址正好是输出函数的第 5 个参数，但是是格式化字符串的第 4 个参数。我们可以来测试一下</p>
+<p><center><img src="./img/print_input.PNG"  ></center></p>
+<h3 id="2">(2). 根据偏移查看输出内容<a class="headerlink" href="#2" title="Permanent link">&para;</a></h3>
+<p>0x41414141 是输出的第 4 个字符，所以我们使用 %4$p 即可读出 0x41414141 处的内容，
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>./leakmemory
+AAAA%4<span class="nv">$p</span>
+<span class="m">00000001</span>.22222222.ffffffff.AAAA%4<span class="nv">$p</span>
+AAAA0x41414141
+</code></pre></div></p>
+<hr />
+<p>当然，这可能是一个不合法的地址。我们把 AAAA 换成我们需要的合法的地址即可查看对应地址的内容。</p>
+<div class="highlight"><pre><span></span><code>python2<span class="w"> </span>-c<span class="w"> </span><span class="s1">&#39;print(&quot;AAA&quot; + &quot;\00\x10\xd3\xff\xff&quot;+&quot;.%5$s&quot;)&#39;</span><span class="w"> </span>&gt;<span class="w"> </span>text
+</code></pre></div>
+<p><center><img src="./img/get_address_context.PNG"  ></center></p>
+<hr />
+<h2 id="2_1">2 格式化字符串漏洞练习题<a class="headerlink" href="#2_1" title="Permanent link">&para;</a></h2>
+<ul>
+<li><a href="https://adworld.xctf.org.cn/task/answer?type=pwn&amp;number=2&amp;grade=0&amp;id=5050&amp;page=1">XCTF-攻防世界 CGfsb 格式化字符串漏洞</a></li>
+<li><a href="https://adworld.xctf.org.cn/task/answer?type=pwn&amp;number=2&amp;grade=1&amp;id=4913&amp;page=1">实时数据监测</a></li>
+</ul>
+<hr />
+<h2 id="_3">参考资料<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h2>
+<ul>
+<li><a href="https://ctf-wiki.github.io/ctf-wiki/pwn/linux/fmtstr/fmtstr_exploit-zh/#_4">ctf wiki</a></li>
+<li><a href="https://firmianay.gitbooks.io/ctf-all-in-one/content/doc/2.3.1_gdb.html">ctf alll in one</a></li>
+</ul>
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../../..", "features": [], "search": "../../../assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.1e8ae164.min.js"></script>
+      
+        <script src="../../../_static/js/extra.js?v=16"></script>
+      
+        <script src="https://cdnjs.loli.net/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+      
+    
+  </body>
+</html>

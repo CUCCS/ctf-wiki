@@ -1,0 +1,1496 @@
+
+<!doctype html>
+<html lang="zh" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../C%E8%AF%AD%E8%A8%80%E8%BF%9B%E9%98%B6/">
+      
+      
+        <link rel="next" href="../../%E6%A0%BC%E5%BC%8F%E5%8C%96%E5%AD%97%E7%AC%A6%E4%B8%B2%E6%BC%8F%E6%B4%9E/%E6%A0%BC%E5%BC%8F%E5%8C%96%E5%AD%97%E7%AC%A6%E4%B8%B2%E6%BC%8F%E6%B4%9E%E7%BB%BC%E5%90%88%E8%AE%AD%E7%BB%83/">
+      
+      
+      <link rel="icon" href="../../../favicon.ico">
+      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.5.17">
+    
+    
+      
+        <title>Linux前置基础及工具 - CUC CTF-Wiki</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.bcfcd587.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Fira+Sans:300,300i,400,400i,700,700i%7CFira+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Fira Sans";--md-code-font:"Fira Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../_static/css/extra.css?v=12">
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="white" data-md-color-accent="red">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#0x02-linux" class="md-skip">
+          跳转至
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="页眉">
+    <a href="../../.." title="CUC CTF-Wiki" class="md-header__button md-logo" aria-label="CUC CTF-Wiki" data-md-component="logo">
+      
+  <img src="../../../images/logo.jpg" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            CUC CTF-Wiki
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Linux前置基础及工具
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="搜索" placeholder="搜索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="查找">
+        
+        <button type="reset" class="md-search__icon md-icon" title="清空当前内容" aria-label="清空当前内容" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            正在初始化搜索引擎
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/cuccs/ctf-wiki" title="前往仓库" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    CUC CTF-Wiki
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="导航栏" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="CUC CTF-Wiki" class="md-nav__button md-logo" aria-label="CUC CTF-Wiki" data-md-component="logo">
+      
+  <img src="../../../images/logo.jpg" alt="logo">
+
+    </a>
+    CUC CTF-Wiki
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/cuccs/ctf-wiki" title="前往仓库" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    CUC CTF-Wiki
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_1" id="__nav_1_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    首页
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_1">
+            <span class="md-nav__icon md-icon"></span>
+            首页
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    主页
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../intro/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    关于本项目
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../FAQ/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    F.A.Q
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    MISC
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            MISC
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../MISC/intro/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    简介
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../MISC/MISC-2/MISC-2/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    信息搜集 && 编码
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../MISC/MISC-1/%E6%95%B0%E5%AD%97%E5%8F%96%E8%AF%81_%E9%9A%90%E5%86%99%E5%88%86%E6%9E%90/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    数字取证 && 隐写分析
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    CRYPTO
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            CRYPTO
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../CRYPTO/intro/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    简介
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../CRYPTO/%E7%AC%AC%E4%B8%89%E5%91%A8-Crypto/Crypto/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    古典密码、对称加密、非对称加密
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    WEB
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            WEB
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../WEB/intro/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    简介
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../WEB/WEB-1/XSS%28%E8%B7%A8%E7%AB%99%E7%82%B9%E8%84%9A%E6%9C%AC%E6%94%BB%E5%87%BB%29/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    XSS
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../WEB/WEB-2/Web%20PHP%20audit/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    PHP audit
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../WEB/WEB-3/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    SQL Injection
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    PWN
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            PWN
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../intro/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    简介
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../C%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    C语言前置基础(基础篇)
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../C%E8%AF%AD%E8%A8%80%E8%BF%9B%E9%98%B6/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    C语言前置基础(进阶篇)
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    Linux前置基础及工具
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    Linux前置基础及工具
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#linux" class="md-nav__link">
+    <span class="md-ellipsis">
+      什么是Linux
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="什么是Linux">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      虚拟机
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      路径的有关描述
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      一些基础指令
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ssh" class="md-nav__link">
+    <span class="md-ellipsis">
+      配置SSH登录
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      一些工具的安装
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="一些工具的安装">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      科学上网
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#gdb" class="md-nav__link">
+    <span class="md-ellipsis">
+      GDB
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#python-pwntools" class="md-nav__link">
+    <span class="md-ellipsis">
+      python-pwntools
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E6%A0%BC%E5%BC%8F%E5%8C%96%E5%AD%97%E7%AC%A6%E4%B8%B2%E6%BC%8F%E6%B4%9E/%E6%A0%BC%E5%BC%8F%E5%8C%96%E5%AD%97%E7%AC%A6%E4%B8%B2%E6%BC%8F%E6%B4%9E%E7%BB%BC%E5%90%88%E8%AE%AD%E7%BB%83/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    格式化字符串漏洞
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E6%A0%88%E6%BA%A2%E5%87%BA/%E6%A0%88%E6%BA%A2%E5%87%BA/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    栈溢出
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E6%95%B4%E6%95%B0%E6%BA%A2%E5%87%BA%E6%BC%8F%E6%B4%9E/%E6%95%B4%E6%95%B0%E6%BA%A2%E5%87%BA/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    整数溢出
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    REVERSE
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            REVERSE
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../REVERSE/intro/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    简介
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    集训安排
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            集训安排
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../training/2020Autumn/2020AutumnOutline/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    2020秋季集训
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../training/2022Autumn/%E7%A7%8B%E5%AD%A3%E5%9F%B9%E8%AE%AD%E5%A4%A7%E7%BA%B2/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    2022秋季集训
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../training/2025Spring/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    2025春季集训
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../training/2025Autumn/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    2025秋季集训
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#linux" class="md-nav__link">
+    <span class="md-ellipsis">
+      什么是Linux
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="什么是Linux">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      虚拟机
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      路径的有关描述
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      一些基础指令
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ssh" class="md-nav__link">
+    <span class="md-ellipsis">
+      配置SSH登录
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      一些工具的安装
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="一些工具的安装">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      科学上网
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#gdb" class="md-nav__link">
+    <span class="md-ellipsis">
+      GDB
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#python-pwntools" class="md-nav__link">
+    <span class="md-ellipsis">
+      python-pwntools
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+  
+  
+
+
+<h1 id="0x02-linux">0x02 Linux 基础及工具<a class="headerlink" href="#0x02-linux" title="Permanent link">&para;</a></h1>
+<h2 id="linux">什么是Linux<a class="headerlink" href="#linux" title="Permanent link">&para;</a></h2>
+<p>一个 <strong>开源、社区生态极好、应用极为广泛、极简</strong> 的 <strong>操作系统内核</strong></p>
+<p>有许多基于Linux内核开发的 操作系统，如 <strong>Kali</strong>、<strong>Ubuntu</strong>......</p>
+<blockquote>
+<p>作为安全从业人员，熟练使用Linux系统可以说是最基本的要求</p>
+</blockquote>
+<p>由于我们现在使用的都是Windows系统，直接在电脑上面把Windows系统刷成Linux也不太合适......毕竟现在办公学习Windows还是主力，所以我们需要使用一个虚拟化技术搭建的 <strong>虚拟机</strong>来完成</p>
+<h3 id="_1">虚拟机<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h3>
+<p>现在主流的虚拟机有</p>
+<ul>
+<li>VMware(付费，个人认为比VBox好用)</li>
+<li>VirtualBox(免费，且各门专业课都在用，推荐⭐)</li>
+<li>Docker（本质上是一个容器，也可以做虚拟机，就是新手确实会遇到各种问题，暂时不推荐...）</li>
+</ul>
+<p>安装过程这里不介绍了，大家自行安装即可~</p>
+<p>安装完毕后我们下载Ubuntu20.04-server版的镜像.iso文件，导入虚拟机并完成初始安装</p>
+<blockquote>
+<p>别问我为什么不下Desktop版，问就是专业素养hhh</p>
+<p>纯命令行版有助于戒掉鼠标点点点 的 低效工作方式，也有助于你更快熟悉Linux命令</p>
+<p>附几个教程链接</p>
+<p><a href="https://blog.csdn.net/weixin_46773333/article/details/128312246">使用VirtualBox安装Ubuntu20.04(server)系统</a></p>
+<p><a href="https://blog.csdn.net/u010308917/article/details/125157774">VMware 虚拟机图文安装和配置 Ubuntu Server 22.04</a></p>
+</blockquote>
+<p>安装完毕并重启之后会是这样的页面</p>
+<p><img alt="" src="../images/0x02-installed.png" /></p>
+<p>你可以用你自定的账号密码进行登录</p>
+<blockquote>
+<p>登录键入密码时不会显示字符，但实际上是正确输入了的，需要考验你的盲打技术~</p>
+</blockquote>
+<p>登陆完毕显示如下的内容</p>
+<p><img alt="" src="../images/0x02-shell.png" /></p>
+<blockquote>
+<p>命令行光标处所在行前面的提示符为 用户名@主机名:当前目录 $ </p>
+<p>美元符号$后是你键入命令的区域</p>
+</blockquote>
+<h3 id="_2">路径的有关描述<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="p">.</span><span class="w">   </span><span class="n">代表当前路径</span>
+<span class="p">..</span><span class="w">  </span><span class="n">代表上一级路径</span>
+<span class="o">/</span><span class="w">   </span><span class="n">代表根目录</span><span class="err">（</span><span class="n">Linux文件系统没有C盘D盘的划分</span><span class="err">，</span><span class="n">因此根目录并没有盘符</span><span class="err">）</span>
+<span class="o">~</span><span class="w">   </span><span class="n">代表当前用户家目录</span>
+</code></pre></div>
+<h3 id="_3">一些基础指令<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code>&lt;press<span class="w"> </span>Ctrl+C&gt;<span class="w"> </span><span class="c1"># 取消执行正在执行的命令（已完成的命令无效）</span>
+
+<span class="nb">pwd</span><span class="w"> </span><span class="c1"># 输出当前路径</span>
+
+ls<span class="w"> </span><span class="c1"># 列出当前路径的所有文件和子路径</span>
+
+<span class="nb">cd</span><span class="w"> </span>&lt;path&gt;<span class="w"> </span><span class="c1">#跳转至&lt;path&gt;目录下</span>
+<span class="c1"># cd举例：</span>
+dnms@ubuntu:~$<span class="w"> </span><span class="nb">cd</span><span class="w"> </span>./pwn-learn<span class="w"> </span><span class="c1"># 回车后执行该行命令</span>
+dnms@ubuntu:~/pwn-learn$<span class="w"> </span><span class="c1"># 可以看到命令提示符从当前目录跳转至子路径pwn-learn</span>
+
+touch<span class="w"> </span>&lt;file<span class="w"> </span>path<span class="w"> </span>and<span class="w"> </span>file<span class="w"> </span>name&gt;<span class="w"> </span><span class="c1"># 在指定目录下创建指定名字的文件</span>
+<span class="c1"># touch举例</span>
+dnms@ubuntu:~$<span class="w"> </span>touch<span class="w"> </span>woohoo~<span class="w"> </span><span class="c1"># 在当前目录创建了woohoo~文件</span>
+dnms@ubuntu:~$<span class="w"> </span>touch<span class="w"> </span>./pwn-learn/wow<span class="w"> </span><span class="c1"># 在./pwn-learn/目录下创建了wow文件</span>
+
+mkdir<span class="w"> </span>&lt;directory<span class="w"> </span>path<span class="w"> </span>and<span class="w"> </span>name&gt;<span class="w"> </span><span class="c1"># 创建新目录</span>
+
+sudo<span class="w"> </span>&lt;other<span class="w"> </span>command&gt;<span class="w"> </span><span class="c1"># 用管理员权限执行&lt;other command&gt;</span>
+
+apt<span class="w"> </span><span class="c1"># 一个ubuntu内置的包管理软件，你可以理解为&quot;应用商店&quot;，需要sudo权限</span>
+<span class="w">    </span>sudo<span class="w"> </span>apt<span class="w"> </span>update<span class="w"> </span><span class="c1"># 从索引网站获取并更新应用列表</span>
+<span class="w">    </span>sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>&lt;package-name&gt;<span class="w"> </span><span class="c1"># 从应用列表中查询相关软件包并下载安装</span>
+
+ssh<span class="w"> </span>&lt;user&gt;@&lt;host<span class="w"> </span>name<span class="w"> </span>or<span class="w"> </span>IP&gt;<span class="w"> </span><span class="c1"># 以某用户远程登陆到某个主机</span>
+<span class="c1"># 如果没有配置免密登录则需要输入密码</span>
+</code></pre></div>
+<p><img alt="" src="../images/0x02-basic-command.png" /></p>
+<h3 id="ssh">配置SSH登录<a class="headerlink" href="#ssh" title="Permanent link">&para;</a></h3>
+<p>由于ubuntu-server自身的shell字很小且难用，我们可以使用物理机上的终端，使用SSH远程登陆</p>
+<p>首先我们要知道我们这台Ubuntu的IP地址，使用<code>ip a</code>指令可以获得网络详细信息</p>
+<p><img alt="" src="../images/0x02-ip-a.png" /></p>
+<p>可以得知我这台ubuntu虚拟机IP为<code>192.168.47.132</code></p>
+<p>新建一个终端</p>
+<p><img alt="" src="../images/0x02-new-powershell.png" /></p>
+<p>进入到终端后是这样的界面</p>
+<p><img alt="" src="../images/0x02-powershell.png" /></p>
+<p>使用<code>ssh &lt;user&gt;@&lt;host name or ip&gt;</code>连接ubuntu虚拟机</p>
+<blockquote>
+<p>因为我配置了免密登录，所以这里用不存在的dnms1用户举例</p>
+</blockquote>
+<p><img alt="" src="../images/0x02-ssh-command.png" /></p>
+<p>输入密码后登陆成功，这个终端的可读性、复制粘贴操作、字体美观程度都要优于内置shell</p>
+<p><img alt="" src="../images/0x02-ssh-login.png" /></p>
+<p>接下来配置免密登录。</p>
+<p>首先另开一个终端，为主机配置SSH远程连接密钥，输入以下命令</p>
+<div class="highlight"><pre><span></span><code>ssh-keygen
+</code></pre></div>
+<p>如果不需要将你的密钥应用在真实生产环境的话，一路Enter即可</p>
+<p>进入到<code>C:\Users\&lt;你的用户&gt;\.ssh</code>目录下</p>
+<blockquote>
+<p>这里如果找不到<code>.ssh</code>目录，记得把文件资源管理器的 查看-&gt;显示-&gt;隐藏的项目 选项开启</p>
+<p>同时记得把文件后缀名显示打开</p>
+</blockquote>
+<p>找到.pub后缀的<strong>公钥</strong>文件，使用任意编辑器打开，全选复制内容，粘贴至ubuntu的<code>~/.ssh/authorized_keys</code>文件内</p>
+<blockquote>
+<p>这里使用ubuntu自带的vim编辑器进行编辑，具体如何使用vim可以问AI或者参考以下文章</p>
+<p><a href="https://www.runoob.com/linux/linux-vim.html">菜鸟教程-Vim编辑器</a></p>
+<p>极其不建议只是盲目地CV指令，手写一遍也比直接CV要好~</p>
+<p>如果你不想学怎么使用vim，这里简单介绍：</p>
+<p>使用Vim打开文件：<code>vim &lt;file path&gt;</code></p>
+<p>进入编辑模式：press button <code>i</code></p>
+<p>退出编辑模式：press button<code>Esc</code></p>
+<p>保存并退出：在编辑模式外键入<code>:wq!</code></p>
+<p>不保存退出：在编辑模式外键入<code>:qa!</code></p>
+</blockquote>
+<p><img alt="" src="../images/0x02-vim.png" /></p>
+<p>编辑完成之后可以为这个远程登陆选项添加别名，以便快速登陆。</p>
+<p>使用任意编辑器打开物理机的<code>C:\Users\&lt;user&gt;\.ssh\config</code>（没有则新建）</p>
+<p>添加一组内容：</p>
+<div class="highlight"><pre><span></span><code>Host &lt;你为这个登陆选项起的别名&gt;
+  HostName &lt;主机(虚拟机)的域名或IP，通常是IP&gt;
+  User &lt;你登入虚拟机的用户名&gt;
+
+# 例如我的Config
+Host dnms
+  HostName 192.168.47.132
+  User dnms
+</code></pre></div>
+<p>保存退出后，当你再次新建终端并ssh登入虚拟机时，直接键入<code>ssh &lt;别名&gt;</code>就可以无需密码地登入</p>
+<h3 id="_4">一些工具的安装<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h3>
+<h4 id="_5">科学上网<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h4>
+<p>掌握科学上网的能力</p>
+<blockquote>
+<p>别问我，我什么都不知道，一切描述仅供学习，不得用于其他用途</p>
+</blockquote>
+<h4 id="gdb">GDB<a class="headerlink" href="#gdb" title="Permanent link">&para;</a></h4>
+<p>最好用最基础的 <strong>反汇编工具</strong>，需要搭配<code>pwndbg</code>插件食用~</p>
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>gdb
+<span class="c1"># 找一个比较体面的目录，用来放置这个项目，这里举个例子</span>
+mkdir<span class="w"> </span>~/tools-for-pwn<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="nb">cd</span><span class="w"> </span>~/tools-for-pwn
+
+git<span class="w"> </span>clone<span class="w"> </span>https://github.com/pwndbg/pwndbg.git
+<span class="c1"># 等待克隆pwndbg结束</span>
+
+<span class="nb">cd</span><span class="w"> </span>pwndbg<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>chmod<span class="w"> </span>+x<span class="w"> </span>./setup.sh
+<span class="c1"># 每个人可能遇到的问题不太一样，出现问题随时线上线下问我~</span>
+</code></pre></div>
+<h4 id="python-pwntools">python-pwntools<a class="headerlink" href="#python-pwntools" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>apt<span class="w"> </span>update
+sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>python3<span class="w"> </span>python3-pip<span class="w"> </span>python3-dev<span class="w"> </span>git<span class="w"> </span>libssl-dev<span class="w"> </span>libffi-dev<span class="w"> </span>build-essential<span class="w"> </span>-y
+python3<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>--upgrade<span class="w"> </span>pip
+
+pip3<span class="w"> </span>install<span class="w"> </span>--upgrade<span class="w"> </span>pwntools
+<span class="c1"># 如果上述第5行命令下载较慢，可以更换国内镜像源</span>
+pip<span class="w"> </span>install<span class="w"> </span>--upgrade<span class="w"> </span>pwntools<span class="w"> </span>-i<span class="w"> </span>https://pypi.tuna.tsinghua.edu.cn/simple
+</code></pre></div>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../../..", "features": [], "search": "../../../assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.1e8ae164.min.js"></script>
+      
+        <script src="../../../_static/js/extra.js?v=16"></script>
+      
+        <script src="https://cdnjs.loli.net/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+      
+    
+  </body>
+</html>

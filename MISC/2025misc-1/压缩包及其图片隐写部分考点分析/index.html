@@ -1,0 +1,1979 @@
+
+<!doctype html>
+<html lang="zh" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+      
+      
+      <link rel="icon" href="../../../favicon.ico">
+      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.5.17">
+    
+    
+      
+        <title>CTF入门之misc方向初探 - CUC CTF-Wiki</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.bcfcd587.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Fira+Sans:300,300i,400,400i,700,700i%7CFira+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Fira Sans";--md-code-font:"Fira Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../_static/css/extra.css?v=12">
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="white" data-md-color-accent="red">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#ctfmisc" class="md-skip">
+          跳转至
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="页眉">
+    <a href="../../.." title="CUC CTF-Wiki" class="md-header__button md-logo" aria-label="CUC CTF-Wiki" data-md-component="logo">
+      
+  <img src="../../../images/logo.jpg" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            CUC CTF-Wiki
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              CTF入门之misc方向初探
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="搜索" placeholder="搜索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="查找">
+        
+        <button type="reset" class="md-search__icon md-icon" title="清空当前内容" aria-label="清空当前内容" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            正在初始化搜索引擎
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/cuccs/ctf-wiki" title="前往仓库" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    CUC CTF-Wiki
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="导航栏" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="CUC CTF-Wiki" class="md-nav__button md-logo" aria-label="CUC CTF-Wiki" data-md-component="logo">
+      
+  <img src="../../../images/logo.jpg" alt="logo">
+
+    </a>
+    CUC CTF-Wiki
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/cuccs/ctf-wiki" title="前往仓库" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    CUC CTF-Wiki
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_1" id="__nav_1_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    首页
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_1">
+            <span class="md-nav__icon md-icon"></span>
+            首页
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    主页
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../intro/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    关于本项目
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../FAQ/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    F.A.Q
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    MISC
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            MISC
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../intro/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    简介
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../MISC-2/MISC-2/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    信息搜集 && 编码
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../MISC-1/%E6%95%B0%E5%AD%97%E5%8F%96%E8%AF%81_%E9%9A%90%E5%86%99%E5%88%86%E6%9E%90/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    数字取证 && 隐写分析
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    CRYPTO
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            CRYPTO
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../CRYPTO/intro/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    简介
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../CRYPTO/%E7%AC%AC%E4%B8%89%E5%91%A8-Crypto/Crypto/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    古典密码、对称加密、非对称加密
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    WEB
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            WEB
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../WEB/intro/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    简介
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../WEB/WEB-1/XSS%28%E8%B7%A8%E7%AB%99%E7%82%B9%E8%84%9A%E6%9C%AC%E6%94%BB%E5%87%BB%29/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    XSS
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../WEB/WEB-2/Web%20PHP%20audit/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    PHP audit
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../WEB/WEB-3/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    SQL Injection
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    PWN
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            PWN
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../PWN/intro/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    简介
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../PWN/%E5%89%8D%E7%BD%AE%E5%9F%BA%E7%A1%80/C%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    C语言前置基础(基础篇)
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../PWN/%E5%89%8D%E7%BD%AE%E5%9F%BA%E7%A1%80/C%E8%AF%AD%E8%A8%80%E8%BF%9B%E9%98%B6/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    C语言前置基础(进阶篇)
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../PWN/%E5%89%8D%E7%BD%AE%E5%9F%BA%E7%A1%80/Linux%E5%9F%BA%E7%A1%80%E5%8F%8A%E5%B7%A5%E5%85%B7/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Linux前置基础及工具
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../PWN/%E6%A0%BC%E5%BC%8F%E5%8C%96%E5%AD%97%E7%AC%A6%E4%B8%B2%E6%BC%8F%E6%B4%9E/%E6%A0%BC%E5%BC%8F%E5%8C%96%E5%AD%97%E7%AC%A6%E4%B8%B2%E6%BC%8F%E6%B4%9E%E7%BB%BC%E5%90%88%E8%AE%AD%E7%BB%83/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    格式化字符串漏洞
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../PWN/%E6%A0%88%E6%BA%A2%E5%87%BA/%E6%A0%88%E6%BA%A2%E5%87%BA/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    栈溢出
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../PWN/%E6%95%B4%E6%95%B0%E6%BA%A2%E5%87%BA%E6%BC%8F%E6%B4%9E/%E6%95%B4%E6%95%B0%E6%BA%A2%E5%87%BA/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    整数溢出
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    REVERSE
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            REVERSE
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../REVERSE/intro/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    简介
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    集训安排
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            集训安排
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../training/2020Autumn/2020AutumnOutline/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    2020秋季集训
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../training/2022Autumn/%E7%A7%8B%E5%AD%A3%E5%9F%B9%E8%AE%AD%E5%A4%A7%E7%BA%B2/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    2022秋季集训
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../training/2025Spring/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    2025春季集训
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../training/2025Autumn/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    2025秋季集训
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      压缩包及图片隐写
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      后缀名和魔数的区别
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      查看文件的十六进制内容
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#010editor" class="md-nav__link">
+    <span class="md-ellipsis">
+      尝试使用010editor打开几个文件（图片）
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#010editor_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      尝试使用010editor打开几个文件（常见文件类型）
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#010editor_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      尝试使用010editor打开几个文件
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      文件结构隐写
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. 压缩包介绍
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      有哪些常见的压缩包格式？(此处列举了部分压缩包格式以及对应的文件头、特点)
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#zip" class="md-nav__link">
+    <span class="md-ellipsis">
+      ZIP格式讲解
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      压缩包解题常用工具：
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. 压缩包相关题目
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      暴力破解
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#zip_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      ZIP 伪加密
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      已知明文攻击
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="已知明文攻击">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      图片格式介绍
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      图片相关题目工具推荐
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4" class="md-nav__link">
+    <span class="md-ellipsis">
+      4. 图片相关题目
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_11" class="md-nav__link">
+    <span class="md-ellipsis">
+      宽高隐写
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#lsb" class="md-nav__link">
+    <span class="md-ellipsis">
+      LSB隐写
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#gif" class="md-nav__link">
+    <span class="md-ellipsis">
+      GIF分离
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#exif" class="md-nav__link">
+    <span class="md-ellipsis">
+      Exif 信息
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_12" class="md-nav__link">
+    <span class="md-ellipsis">
+      参考资料
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+  
+  
+
+
+<h1 id="ctfmisc">CTF入门之misc方向初探<a class="headerlink" href="#ctfmisc" title="Permanent link">&para;</a></h1>
+<h2 id="_1">压缩包及图片隐写<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
+<hr />
+<blockquote>
+<p>misc是什么呢？</p>
+<p>Misc 是英文 Miscellaneous 的前四个字母，杂项、混合体、大杂烩的意思。<a href="https://ctf-wiki.org/misc/introduction/">CTF-wiki | misc介绍</a>
+- Recon（信息搜集）
+  - 主要介绍一些获取信息的渠道和一些利用百度、谷歌等搜索引擎的技巧
+- Encode（编码转换）
+  - 主要介绍在 CTF 比赛中一些常见的编码形式以及转换的技巧和常见方式
+- Forensic &amp;&amp; Stego（数字取证 &amp;&amp; 隐写分析）
+  - 隐写取证是 Misc 中最为重要的一块，包括文件分析、隐写、内存镜像分析和流量抓包分析等等，涉及巧妙的编码、隐藏数据、层层嵌套的文件中的文件，灵活利用搜索引擎获取所需要的信息等等。</p>
+</blockquote>
+<p><img alt="" src="../imgs/image.png" /></p>
+<hr />
+<h2 id="_2">后缀名和魔数的区别<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">特征</th>
+<th style="text-align: left;">文件后缀名 (File Suffix)</th>
+<th style="text-align: left;">魔数 (Magic Number)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>本质</strong></td>
+<td style="text-align: left;">外在的命名约定，给人看的标签</td>
+<td style="text-align: left;">内在的数据标记，给程序看的标识</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>位置</strong></td>
+<td style="text-align: left;">文件名的末尾</td>
+<td style="text-align: left;">文件二进制数据的开头</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>作用</strong></td>
+<td style="text-align: left;">方便用户和操作系统关联程序</td>
+<td style="text-align: left;">程序用来准确识别文件真实类型</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>可靠性</strong></td>
+<td style="text-align: left;"><strong>低</strong>，可以随意修改和伪造</td>
+<td style="text-align: left;"><strong>高</strong>，是文件内容的一部分，修改即损坏</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>修改影响</strong></td>
+<td style="text-align: left;">只影响文件的图标和默认打开方式</td>
+<td style="text-align: left;">会导致文件损坏，无法被正常程序识别</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="_3">查看文件的十六进制内容<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h2>
+<p>在一些 CTF 的 Misc 题目中，我们需要查看文件的十六进制内容来查看文件结构和判断文件类型，用什么工具呢？</p>
+<p>可借助十六进制编辑器，如<a href="https://www.sweetscape.com/010editor/"><code>010 Editor</code></a>、<a href="https://x-ways.net/winhex/"><code>WinHex</code></a>、<a href="https://github.com/WerWolv/ImHex"><code>ImHex</code></a>等，直接查看与分析二进制。</p>
+<hr />
+<h2 id="010editor">尝试使用010editor打开几个文件（图片）<a class="headerlink" href="#010editor" title="Permanent link">&para;</a></h2>
+<p><img alt="" src="../imgs/png-hex.png" />
+使用010打开<code>png</code>展示</p>
+<p><img alt="" src="../imgs/jpg-hex.png" />
+使用010打开<code>jpg</code>展示</p>
+<p><img alt="" src="../imgs/gif-hex.png" />
+使用010打开<code>gif</code>展示</p>
+<hr />
+<h2 id="010editor_1">尝试使用010editor打开几个文件（常见文件类型）<a class="headerlink" href="#010editor_1" title="Permanent link">&para;</a></h2>
+<p><img alt="" src="../imgs/zip-hex.png" />
+使用010打开<code>zip</code>展示</p>
+<p><img alt="" src="../imgs/pdf-hex.png" />
+使用010打开<code>pdf</code>展示</p>
+<p><img alt="" src="../imgs/pcapng-hex.png" />
+使用010打开<code>pcapng</code>展示</p>
+<hr />
+<h2 id="010editor_2">尝试使用010editor打开几个文件<a class="headerlink" href="#010editor_2" title="Permanent link">&para;</a></h2>
+<p><img alt="" src="../imgs/docx-hex.png" />
+使用010打开<code>docx</code>展示</p>
+<p><img alt="" src="../imgs/xlsx-hex.png" />
+使用010打开<code>xlsx</code>展示</p>
+<p><img alt="" src="../imgs/pptx-hex.png" />
+使用010打开<code>pptx</code>展示</p>
+<hr />
+<p>其他文件我就不再展示了，大家有兴趣可以自行去探索，以及熟悉熟悉<code>010editor</code>编辑器的使用</p>
+<p><code>Tips</code>：如果题目提供附件，建议在 <code>010 Editor</code> 中仔细查看，或许会有意外收获。😏</p>
+<hr />
+<h2 id="_4">文件结构隐写<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h2>
+<p>很多文件可能会包含一些冗余数据，而这些冗余数据在正常打开的时候可能是感觉不到的，但是我们可以通过之前提到的十六进制编辑器来查看文件的结构，从而发现这些冗余数据，解出隐写的信息。</p>
+<p>题目链接：
+- <a href="https://www.nssctf.cn/problem/3375">文件结构隐写</a></p>
+<hr />
+<h2 id="1">1. 压缩包介绍<a class="headerlink" href="#1" title="Permanent link">&para;</a></h2>
+<hr />
+<blockquote>
+<p>什么是压缩包？</p>
+<p>压缩包是一种文件格式，用于将多个文件打包成一个文件，极大的进行压缩，用来减小文件存储和提高传输效率，通常用于传输和存储。</p>
+</blockquote>
+<p>压缩算法的核心思想是<strong>寻找并消除冗余</strong>。计算机文件中的数据其实存在很多重复的模式。</p>
+<p>举一个简单的例子，假设一个文本文件里有这样一句话：<code>AAAAABBBBBCCCCCC</code></p>
+<p>这句话有16个字符。压缩算法可能会这样记录它：<code>A(5)B(5)C(6)</code></p>
+<p>这样只需要6个字符的记录空间，就存下了同样的信息。解压缩时，程序会根据这个记录把原始内容“还原”出来。实际的压缩算法比这个复杂得多，但基本原理是相通的。</p>
+<hr />
+<h2 id="_5">有哪些常见的压缩包格式？(此处列举了部分压缩包格式以及对应的文件头、特点)<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">格式名称</th>
+<th style="text-align: left;">文件头 (Hex)</th>
+<th style="text-align: left;">文件头 (ASCII)</th>
+<th style="text-align: left;">特点</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>ZIP</strong></td>
+<td style="text-align: left;"><code>50 4B 03 04</code></td>
+<td style="text-align: left;"><code>PK..</code></td>
+<td style="text-align: left;">最通用的格式，兼容性极佳，几乎所有操作系统都原生支持。</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>JAR</strong></td>
+<td style="text-align: left;"><code>50 4B 03 04</code></td>
+<td style="text-align: left;"><code>PK..</code></td>
+<td style="text-align: left;">Java Archive，本质上是 ZIP 格式。</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>PHAR</strong></td>
+<td style="text-align: left;">不固定</td>
+<td style="text-align: left;"><code>...__HALT_COMPILER();?&gt;</code></td>
+<td style="text-align: left;">PHP Archive，用于打包和分发 PHP 应用程序。</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>RAR</strong></td>
+<td style="text-align: left;"><code>52 61 72 21 1A 07 00</code> (RAR 4.x)<br><code>52 61 72 21 1A 07 01 00</code> (RAR 5.0)</td>
+<td style="text-align: left;"><code>Rar!...</code></td>
+<td style="text-align: left;">压缩率通常高于 ZIP。支持错误恢复记录（Recovery Record），可以修复轻微损坏的压缩包。格式相对封闭，解压免费但压缩算法是专有的。</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>7z</strong></td>
+<td style="text-align: left;"><code>37 7A BC AF 27 1C</code></td>
+<td style="text-align: left;"><code>7z¼¯'</code></td>
+<td style="text-align: left;">开源格式，拥有非常高的压缩率（LZMA/LZMA2 算法）。支持强大的 AES-256 加密。(会有针对该算法的专门考题)需要 7-Zip 或兼容的软件来处理。</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Gzip</strong></td>
+<td style="text-align: left;"><code>1F 8B 08</code></td>
+<td style="text-align: left;"><code>...</code></td>
+<td style="text-align: left;">只压缩单个文件，不进行打包。在 Linux/Unix 世界中极为常用，通常与 <code>tar</code> 结合使用（<code>.tar.gz</code>）。<code>gzip</code> 的 <code>gz</code> 代表 GNU Zip。</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>bzip2</strong></td>
+<td style="text-align: left;"><code>42 5A 68</code></td>
+<td style="text-align: left;"><code>BZh</code></td>
+<td style="text-align: left;">另一种单文件压缩工具，通常比 Gzip 压缩率更高，但速度更慢。也常与 <code>tar</code> 结合使用（<code>.tar.bz2</code>）。</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>xz</strong></td>
+<td style="text-align: left;"><code>FD 37 7A 58 5A 00</code></td>
+<td style="text-align: left;"><code>ý7zXZ.</code></td>
+<td style="text-align: left;">使用 LZMA/LZMA2 算法的现代单文件压缩工具。压缩率非常高，常作为新一代 Linux 软件包的压缩标准，与 <code>tar</code> 结合为 <code>.tar.xz</code>。</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>TAR</strong></td>
+<td style="text-align: left;">无固定魔数 (在偏移量 257 处有 <code>75 73 74 61 72</code>)</td>
+<td style="text-align: left;"><code>ustar</code> (在偏移量 257 处)</td>
+<td style="text-align: left;">Tape Archive，只负责将文件和目录结构“打包”成一个文件，本身不压缩。完美保留 Unix/Linux 的文件权限和元数据。必须与其他压缩工具（如 <code>gzip</code>, <code>bzip2</code>, <code>xz</code>）结合才能减小体积。</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>ISO</strong></td>
+<td style="text-align: left;">无固定魔数 (在偏移量 0x8001 处有 <code>43 44 30 30 31</code>)</td>
+<td style="text-align: left;"><code>CD001</code> (在偏移量 0x8001 处)</td>
+<td style="text-align: left;"></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="zip">ZIP格式讲解<a class="headerlink" href="#zip" title="Permanent link">&para;</a></h2>
+<p>ZIP 文件主要由三部分构成，分别为压缩源文件数据区（local file header + file data）、核心目录（central directory）、目录结束（end of central directory record）</p>
+<p>详情可看:
+<a href="https://hello-ctf.com/hc-misc/Archivefile/#zip">Hello-ctf | misc | 压缩包 ｜ ZIP</a>
+<a href="https://ctf-wiki.org/misc/archive/zip/">CTF-Wiki | misc | 压缩包 ｜ ZIP</a></p>
+<hr />
+<p>源文件区域区
+<img alt="" src="../imgs/zip-local-hex.png" /></p>
+<ul>
+<li>ZIPFILERECORD record # 压缩源文件数据区<ul>
+<li>char frSignature[4] # 压缩源文件标志</li>
+<li>ushort frVersion # 压缩源文件版本</li>
+<li>ushort frFlags # 压缩源文件标志 （有无加密）</li>
+<li>enum COMPTYPE frCompression</li>
+<li>DOSTIME frFileTime # 压缩源文件时间</li>
+<li>DOSDATE frFileDate # 压缩源文件日期</li>
+<li>uint frCrc # 源文件CRC32校验值</li>
+<li>uint frCompressedSize # 源文件压缩后大小</li>
+<li>uint frUncompressedSize # 源文件压缩前大小</li>
+<li>ushort frFileNameLength # 源文件名长度</li>
+<li>ushort frExtraFieldLength # 源文件扩展域长度</li>
+<li>char frFileName[frFileNameLength] # 压缩源文件名</li>
+<li>uchar frData[frCompressedSize] # 压缩源文件数据</li>
+</ul>
+</li>
+</ul>
+<hr />
+<ul>
+<li>ZIPDIRENTRY dirEntry # 压缩源文件目录区<ul>
+<li>char deSignature[4] # 目录标志</li>
+<li>ushort deVersionMadeBy # 创建该条目的版本</li>
+<li>ushort deVersionNeeded # 解压该条目所需的版本</li>
+<li>ushort deFlags # 标志位(<code>存在加密的标志位</code>)</li>
+<li>enum COMPTYPE deCompression # 压缩方法</li>
+<li>DOSTIME deFileTime # 最后修改时间</li>
+<li>DOSDATE deFileDate # 最后修改日期</li>
+<li>uint deCrc # CRC32校验值</li>
+<li>uint deCompressedSize # 压缩后的大小</li>
+<li>uint deUncompressedSize # 压缩前的大小</li>
+<li>ushort deFileNameLength # 文件名长度</li>
+<li>ushort deExtraFieldLength # 扩展域长度</li>
+<li>ushort deFileCommentLength # 文件评论长度</li>
+<li>ushort deDiskNumberStart # 起始磁盘编号</li>
+<li>ushort deInternalAttributes # 内部属性</li>
+<li>uint deExternalAttributes # 外部属性</li>
+<li>uint deRelativeOffset # 该条目在 ZIP 文件中的偏移位置</li>
+<li>char deFileName[deFileNameLength] # 文件名</li>
+<li>char deExtraField[deExtraFieldLength] # 扩展域</li>
+<li>char deFileComment[deFileCommentLength] # 文件评论</li>
+</ul>
+</li>
+</ul>
+<p>核心目录区
+<img alt="" src="../imgs/zip-dir-hex.png" /></p>
+<hr />
+<ul>
+<li>ZIPENDLOCATOR endLocator # 压缩源文件目录结束标志<ul>
+<li>char elSignature[4] # 结束标志</li>
+<li>ushort elDiskNumber # 当前磁盘编号</li>
+<li>ushort elStartDiskNumber # 目录开始的磁盘编号</li>
+<li>ushort elEntriesOnDisk # 当前磁盘上的条目数量</li>
+<li>ushort elEntriesTotal # 总条目数量</li>
+<li>uint elSizeOfDirectory # 目录的总大小</li>
+<li>uint elOffsetOfDirectory # 目录开始的偏移位置</li>
+<li>ushort elCommentLength # 注释长度</li>
+<li>char elComment[elCommentLength] # 注释</li>
+</ul>
+</li>
+</ul>
+<p>目录结束区
+<img alt="" src="../imgs/zip-end-hex.png" /></p>
+<hr />
+<h2 id="_6">压缩包解题常用工具：<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h2>
+<p>压缩/解压工具：<a href="https://www.7-zip.org/">7-Zip</a>、<a href="https://www.bandisoft.com/bandizip/">Bandizip</a>
+解题工具：ARCHPR、<a href="https://ziperello.apponic.com/">Ziperello</a>、<a href="https://github.com/kimci86/bkcrack">bkcrack</a>
+一些大佬写的好用的解题脚本
+<a href="https://github.com/asaotomo/ZipCracker">ZipCracker</a>、<a href="https://github.com/AabyssZG/CRC32-Tools">CRC32-Tools</a>、<a href="https://github.com/yo-wotop/7z-tools">7z-tools</a>
+ARCHPR的分享链接在这里。
+分享名称：misc相关工具  链接：<code>https://kod.cuc.edu.cn/#s/_x2yQqRQ</code>  提取码：<code>e9fNO</code></p>
+<blockquote>
+<p><code>注：</code>不要过分依赖工具！！！——Hello-ctf</p>
+<p>MISC 是一个对编程能力要求比较高的方向，不过大多数考点的固定衍生出比较多的 " 轮子"，当然轮子减少手动操作，确实是好东西，但是容易产生一些弊端，因为跳过了手动操作所以不懂原理也能梭题目，可能会导致选手略过本来应该学的原理，手动会做之后再碰到了用工具减少操作是完全没问题的，即便没有这些整合工具，用现成脚本说到底本质也是一样的。使用工具获取便利的同时 请不要忽略对原理的学习！</p>
+</blockquote>
+<p>部分工具推荐来自<a href="https://hello-ctf.com/hc-toolkit/">Hello-ctf | toolkit</a></p>
+<hr />
+<h2 id="2">2. 压缩包相关题目<a class="headerlink" href="#2" title="Permanent link">&para;</a></h2>
+<hr />
+<h2 id="_7">暴力破解<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h2>
+<blockquote>
+<p>[question] 暴力破解是什么</p>
+<p>暴力攻击是一种试错方法，用于解码敏感数据。暴力攻击最常用于破解密码和破解加密密钥（继续阅读，了解加密密钥详细信息）。暴力攻击的其他常见目标包括 API 密钥和 SSH 登录信息。通常是通过脚本或针对网站登录页面的机器人来实施暴力破解密码攻击。
+蛮力攻击与其他破解方法的不同之处在于，蛮力攻击不采用智力策略；他们只是尝试使用不同的字符组合，直到找到正确的组合。这就像小偷试图通过尝试所有可能的数字组合直到保险箱打开来闯入组合保险箱。</p>
+</blockquote>
+<p>题目链接：<a href="https://www.nssctf.cn/problem/5960">压缩包密码爆破</a></p>
+<hr />
+<h2 id="zip_1">ZIP 伪加密<a class="headerlink" href="#zip_1" title="Permanent link">&para;</a></h2>
+<blockquote>
+<p>[question] 什么是 ZIP 伪加密</p>
+<p>ZIP 伪加密是通过修改文件头的加密标志位，使其在打开时被识别为“已加密”的压缩包。
+理解 ZIP 构成后可知：判断是否加密，主要看“压缩源文件数据区”和“目录区”的全局方式位标记。关键在于标记首字节的奇偶：偶数为未加密（如 00、02、04），奇数为加密（如 01、03、09）。该标记为 2 字节，其它位值不影响加密属性。</p>
+</blockquote>
+<p>题目链接：<a href="https://www.nssctf.cn/problem/5961">ZIP伪加密</a></p>
+<hr />
+<p>真加密
+<img alt="" src="../imgs/encrypt.png" /></p>
+<p>伪加密
+<img alt="" src="../imgs/fake_encrypt.png" /></p>
+<p>无加密
+<img alt="" src="../imgs/no_encrypt.png" /></p>
+<hr />
+<h2 id="_8">已知明文攻击<a class="headerlink" href="#_8" title="Permanent link">&para;</a></h2>
+<blockquote>
+<p>已知明文攻击是什么</p>
+<p>密码分析中，已知明文攻击（Known plaintext attack）是一种攻击模式，指攻击者掌握了某段明文 x 和对应密文 y。
+在所有密码分析中，均假设攻击者知道正在使用的密码体制，该假设称为科克霍夫假设。而已知明文攻击也假设攻击者能够获取部分明文和相应密文，如截取信息前段，通过该类型攻击获取加密方式，从而便于破解后段密文。
+题目链接: <a href="https://www.nssctf.cn/problem/5962">明文与合并</a></p>
+<p>zip已知明文攻击的利用条件</p>
+<ol>
+<li>至少已知明文的12个字节及偏移，其中至少8字节需要连续。</li>
+<li>明文文件需要被相同的压缩算法标准压缩（也可理解为被相同压缩工具压缩）</li>
+<li>明文对应文件的加密算法需要是 ZipCrypto Store
+题目链接: <a href="https://www.nssctf.cn/problem/6535">[GHCTF 2025]mybrave</a></li>
+</ol>
+</blockquote>
+<hr />
+<blockquote>
+<p>什么是CRC32碰撞</p>
+<p>CRC 本身是「冗余校验码」的意思，CRC32 则表示会产生一个 32 bit ( 8 位十六进制数) 的校验值。由于 CRC32 产生校验值时源数据块的每一个 bit (位) 都参与了计算，所以数据块中即使只有一位发生了变化，也会得到不同的 CRC32 值。
+CRC32 校验码出现在很多文件中比如 png 文件，同样 zip 中也有 CRC32 校验码。值得注意的是 zip 中的 CRC32 是未加密文件的校验值。</p>
+<p><strong>CRC32碰撞攻击原理：</strong></p>
+<ol>
+<li><strong>基础原理</strong>：CRC32是一个32位的校验值，理论上有2^32种可能的值。当文件内容很短时（如4字节），可能的明文组合数量有限，我们可以通过暴力枚举所有可能的明文来找到与目标CRC32值匹配的内容。</li>
+<li><strong>算法流程</strong>：</li>
+<li>获取加密zip文件中的CRC32校验值</li>
+<li>根据文件大小确定可能的字符集（通常是可打印字符）</li>
+<li>枚举所有可能的明文组合</li>
+<li>计算每个组合的CRC32值</li>
+<li>找到与目标CRC32匹配的明文</li>
+<li><strong>攻击条件</strong>：</li>
+<li>文件内容很少（一般比赛中大多为 4 字节左右）</li>
+<li>加密的密码很长（暴力破解不现实）</li>
+<li>已知文件的CRC32校验值</li>
+<li><strong>时间复杂度</strong>：对于n字节的文件，如果字符集大小为k，则需要枚举k^n种可能，当n较小时这是可行的。</li>
+</ol>
+</blockquote>
+<p>可以使用的工具：<a href="https://github.com/AabyssZG/CRC32-Tools">CRC32-Tools</a>
+题目链接：<a href="https://www.nssctf.cn/problem/3305">[MoeCTF 2022]cccrrc</a></p>
+<hr />
+<h3 id="_9">图片格式介绍<a class="headerlink" href="#_9" title="Permanent link">&para;</a></h3>
+<blockquote>
+<p>图像文件与黑客文化联系紧密，CTF 竞赛中常见各类图片相关题目。
+图像格式多样（如 PNG、JPEG、GIF、BMP），涉及元数据、信息丢失/无损压缩、校验、隐写与可视化编码等分析方向，均为 Misc 的重要出题点。相关知识面较广（文件格式、隐写手法与工具），部分内容需要更深入的理解与练习。</p>
+</blockquote>
+<hr />
+<blockquote>
+<p>不管是什么格式，或采用什么样的压缩标准，原始的图像数据其实都是一样的，而且也符合我们直观的理解。
+例如，一张 4 × 4 （宽度和高度都是 4 个像素）的彩色图片，未压缩的的原始图像数据，就是一个 4 × 4 矩形网格，每一个网格代表一个像素。
+而彩色图片的每一个像素，又是由 红，绿，蓝 三基色构成，如下图右边所示，红绿蓝，对应于 r g b 三个数值，也就是常说的 RGB 色彩模式。
+RGB在计算机视觉领域，又称为颜色通道，彩色图像有<code>三个通道值</code>，每个颜色通道，都是一个 0～255 的整数值，占用一个字节（Byte）的存储空间。</p>
+</blockquote>
+<p><img alt="" src="../imgs/pic_core.jpg" />
+<img alt="" src="../imgs/rgb.jpg" /></p>
+<hr />
+<p><strong>PNG</strong>
+对于一个 PNG 文件来说，其文件头总是由位固定的字节来描述的，剩余的部分由 3 个以上的 PNG 的数据块（Chunk）按照特定的顺序组成。
+文件头 <code>89 50 4E 47 0D 0A 1A 0A + 数据块 + 数据块 + 数据块</code>……
+数据块 CHUNK
+PNG 定义两类数据块：关键数据块（critical chunks）与辅助数据块（ancillary chunks）。关键数据块中有 4 个标准块，每个 PNG 文件都必须包含（PLTE 可选），PNG 读写软件必须支持这些数据块。</p>
+<p><img alt="" src="../imgs/png-hex.png" /></p>
+<hr />
+<!-- _class:  navbar -->
+
+<table>
+<thead>
+<tr>
+<th>数据块符号</th>
+<th>数据块名称</th>
+<th>多数据块</th>
+<th>可选否</th>
+<th>位置限制</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>IHDR</code></td>
+<td>文件头数据块</td>
+<td>否</td>
+<td>否</td>
+<td>第一块</td>
+</tr>
+<tr>
+<td>cHRM</td>
+<td>基色和白色点数据块</td>
+<td>否</td>
+<td>是</td>
+<td>在 PLTE 和 IDAT 之前</td>
+</tr>
+<tr>
+<td>gAMA</td>
+<td>图像 <span class="arithmatex"><span class="MathJax_Preview">\gamma</span><script type="math/tex">\gamma</script></span> 数据块</td>
+<td>否</td>
+<td>是</td>
+<td>在 PLTE 和 IDAT 之前</td>
+</tr>
+<tr>
+<td>sBIT</td>
+<td>样本有效位数数据块</td>
+<td>否</td>
+<td>是</td>
+<td>在 PLTE 和 IDAT 之前</td>
+</tr>
+<tr>
+<td><strong>PLTE</strong></td>
+<td>调色板数据块</td>
+<td>否</td>
+<td>是</td>
+<td>在 IDAT 之前</td>
+</tr>
+<tr>
+<td>bKGD</td>
+<td>背景颜色数据块</td>
+<td>否</td>
+<td>是</td>
+<td>在 PLTE 之后 IDAT 之前</td>
+</tr>
+<tr>
+<td>hIST</td>
+<td>图像直方图数据块</td>
+<td>否</td>
+<td>是</td>
+<td>在 PLTE 之后 IDAT 之前</td>
+</tr>
+<tr>
+<td>tRNS</td>
+<td>图像透明数据块</td>
+<td>否</td>
+<td>是</td>
+<td>在 PLTE 之后 IDAT 之前</td>
+</tr>
+<tr>
+<td>oFFs</td>
+<td>(专用公共数据块)</td>
+<td>否</td>
+<td>是</td>
+<td>在 IDAT 之前</td>
+</tr>
+<tr>
+<td>pHYs</td>
+<td>物理像素尺寸数据块</td>
+<td>否</td>
+<td>是</td>
+<td>在 IDAT 之前</td>
+</tr>
+<tr>
+<td>sCAL</td>
+<td>(专用公共数据块)</td>
+<td>否</td>
+<td>是</td>
+<td>在 IDAT 之前</td>
+</tr>
+<tr>
+<td><code>IDAT</code></td>
+<td>图像数据块</td>
+<td>是</td>
+<td>否</td>
+<td>与其他 IDAT 连续</td>
+</tr>
+<tr>
+<td>tIME</td>
+<td>图像最后修改时间数据块</td>
+<td>否</td>
+<td>是</td>
+<td>无限制</td>
+</tr>
+<tr>
+<td>tEXt</td>
+<td>文本信息数据块</td>
+<td>是</td>
+<td>是</td>
+<td>无限制</td>
+</tr>
+<tr>
+<td>zTXt</td>
+<td>压缩文本数据块</td>
+<td>是</td>
+<td>是</td>
+<td>无限制</td>
+</tr>
+<tr>
+<td>fRAc</td>
+<td>(专用公共数据块)</td>
+<td>是</td>
+<td>是</td>
+<td>无限制</td>
+</tr>
+<tr>
+<td>gIFg</td>
+<td>(专用公共数据块)</td>
+<td>是</td>
+<td>是</td>
+<td>无限制</td>
+</tr>
+<tr>
+<td>gIFt</td>
+<td>(专用公共数据块)</td>
+<td>是</td>
+<td>是</td>
+<td>无限制</td>
+</tr>
+<tr>
+<td>gIFx</td>
+<td>(专用公共数据块)</td>
+<td>是</td>
+<td>是</td>
+<td>无限制</td>
+</tr>
+<tr>
+<td><code>IEND</code></td>
+<td>图像结束数据块</td>
+<td>否</td>
+<td>否</td>
+<td>最后一个数据块</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<p>对于每个数据块都有着统一的数据结构，每个数据块由 4 个部分组成</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;">名称</th>
+<th style="text-align: center;">字节数</th>
+<th style="text-align: left;">说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;"><strong>Length</strong> (长度)</td>
+<td style="text-align: center;">4 字节</td>
+<td style="text-align: left;">指定数据块中数据域的长度，其长度不超过 <span class="arithmatex"><span class="MathJax_Preview">(2^{31}-1)</span><script type="math/tex">(2^{31}-1)</script></span> 字节</td>
+</tr>
+<tr>
+<td style="text-align: center;"><strong>Chunk Type Code</strong> (数据块类型码)</td>
+<td style="text-align: center;">4 字节</td>
+<td style="text-align: left;">数据块类型码由 ASCII 字母 (A - Z 和 a - z) 组成</td>
+</tr>
+<tr>
+<td style="text-align: center;"><strong>Chunk Data</strong> (数据块数据)</td>
+<td style="text-align: center;">可变长度</td>
+<td style="text-align: left;">存储按照 Chunk Type Code 指定的数据</td>
+</tr>
+<tr>
+<td style="text-align: center;"><strong>CRC</strong> (循环冗余检测)</td>
+<td style="text-align: center;">4 字节</td>
+<td style="text-align: left;">存储用来检测是否有错误的循环冗余码</td>
+</tr>
+</tbody>
+</table>
+<p>CRC（Cyclic Redundancy Check）域中的值是对 Chunk Type Code 域和 Chunk Data 域中的数据进行计算得到的。</p>
+<hr />
+<ul>
+<li>文件头数据块 IHDR（Header Chunk）：它包含有 PNG 文件中存储的图像数据的基本信息，由 13 字节组成，并要作为第一个数据块出现在 PNG 数据流中，而且一个 PNG 数据流中只能有一个文件头数据块</li>
+<li>其中我们主要关注的是前 8 字节的内容</li>
+<li>Width   4 bytes 图像宽度，以像素为单位</li>
+<li>Height 4 bytes  图像高度，以像素为单位</li>
+</ul>
+<p><img alt="" src="../imgs/ihdr-hex.png" /></p>
+<ul>
+<li>图像数据块 IDAT（image data chunk）：它存储实际的数据，在数据流中可包含多个连续顺序的图像数据块。</li>
+<li>储存图像像素数据</li>
+<li>在数据流中可包含多个连续顺序的图像数据块</li>
+<li>采用 LZ77 算法的派生算法进行压缩</li>
+<li>可以用 zlib 解压缩</li>
+<li>值得注意的是，IDAT 块只有当上一个块充满时，才会继续一个新的块。
+<img alt="" src="../imgs/pngcheck.png" /></li>
+</ul>
+<p><img alt="" src="../imgs/idats-hex.png" /></p>
+<p>IEND
+图像结束数据 IEND（image trailer chunk）：它用来标记 PNG 文件或者数据流已经结束，并且必须要放在文件的尾部。
+<code>00 00 00 00 49 45 4E 44 AE 42 60 82</code>
+IEND 数据块的长度总是 00 00 00 00，数据标识总是 IEND 49 45 4E 44，因此，CRC 码也总是 AE 42 60 82。</p>
+<p><img alt="" src="../imgs/iend.png" /></p>
+<hr />
+<p><strong>JPEG</strong></p>
+<p>文件结构：
+- JPEG 是有损压缩格式，将像素信息用 JPEG 保存成文件再读取出来，其中某些像素值会有少许变化。在保存时有个质量参数可在 0 至 100 之间选择，参数越大图片就越保真，但图片的体积也就越大。一般情况下选择 70 或 80 就足够了
+- JPEG 没有透明度信息</p>
+<p>JPEG 基本数据结构分为两类：「段」与经过压缩编码的图像数据：
+- 有些段没有长度描述也没有内容，只有段标识和段类型。文件头和文件尾均属于这种段。
+- 段与段之间无论有多少 FF 都是合法的，这些 FF 称为「填充字节」，必须被忽略掉。
+- 0xFFD8 与 0xFFD9 为 JPEG 文件的开始与结束标志</p>
+<p>一些常见的段类型
+<img alt="" src="../imgs/segment.png" /></p>
+<p>一个 JPEG 图片的十六进制示例
+<img alt="width:500" src="../imgs/jpg-hex.png" /></p>
+<hr />
+<p><strong>GIF</strong></p>
+<ul>
+<li>一个 GIF 文件的结构可分为</li>
+<li>文件头（File Header）<ul>
+<li>GIF 文件署名（Signature）</li>
+<li>版本号（Version）</li>
+</ul>
+</li>
+<li>GIF 数据流（GIF Data Stream）<ul>
+<li>控制标识符</li>
+<li>图象块（Image Block）</li>
+</ul>
+</li>
+<li>其他的一些扩展块<ul>
+<li>文件终结器（Trailer）</li>
+</ul>
+</li>
+</ul>
+<p>下图展示了一个 GIF 文件的组成结构：
+<img alt="" src="../imgs/gif-contains.png" />
+中间的那个大块可以被重复任意次</p>
+<p><strong>GIF 的数据块</strong></p>
+<p>文件头
+GIF 署名（Signature）和版本号（Version）。GIF 署名用来确认一个文件是否是 GIF 格式的文件，这一部分由三个字符组成：GIF；文件版本号也是由三个字节组成，可以为 87a 或 89a。</p>
+<p>逻辑屏幕标识符（Logical Screen Descriptor）
+Logical Screen Descriptor（逻辑屏幕描述符）紧跟在 header 后面。这个块告诉 decoder（解码器）图片需要占用的空间。它的大小固定为 7 个字节，以 canvas width（画布宽度）和 canvas height（画布高度）开始。</p>
+<p>全局颜色列表（Global Color Table）
+GIF 格式可以拥有 global color table，或用于针对每个子图片集，提供 local color table。每个 color table 由一个 RGB（就像通常我们见到的（255，0，0）红色 那种）列表组成。</p>
+<p>图像标识符（Image Descriptor）
+一个 GIF 文件一般包含多个图片。之前的图片渲染模式一般是将多个图片绘制到一个大的（virtual canvas）虚拟画布上，而现在一般将这些图片集用于实现动画。</p>
+<p>每个 image 都以一个 image descriptor block（图像描述块）作为开头，这个块固定为 10 字节。</p>
+<p><img alt="" src="../imgs/image_descriptor.png" /></p>
+<p>图像数据（Image Data）
+终于到了图片数据实际存储的地方。Image Data 是由一系列的输出编码（output codes）构成，它们告诉 decoder（解码器）需要绘制在画布上的每个颜色信息。这些编码以字节码的形式组织在这个块中。</p>
+<p>文件终结器（Trailer）
+该块为一个单字段块，用来指示该数据流的结束。取固定值 0x3b.</p>
+<p>更多参见 <a href="http://www.jianshu.com/p/df52f1511cf8">gif 格式图片详细解析</a></p>
+<hr />
+<h2 id="_10">图片相关题目工具推荐<a class="headerlink" href="#_10" title="Permanent link">&para;</a></h2>
+<p><a href="https://entropymine.com/jason/tweakpng">tweakpng</a>—&gt;快速查看png图片的块信息</p>
+<p><a href="https://github.com/Giotino/stegsolve">stegsolve-java环境</a>—&gt;快速查看图片的隐写信息lsb|gif帧分离</p>
+<p><a href="https://github.com/aristorechina/arnold_decoder">Arnold变换爆破工具</a></p>
+<p>大佬的脚本：<a href="https://github.com/AabyssZG/Deformed-Image-Restorer.git">Deformed-Image-Restorer</a></p>
+<hr />
+<h2 id="4">4. 图片相关题目<a class="headerlink" href="#4" title="Permanent link">&para;</a></h2>
+<hr />
+<h2 id="_11">宽高隐写<a class="headerlink" href="#_11" title="Permanent link">&para;</a></h2>
+<p>学习 PNG 时，IHDR 块包含图片的宽度与高度。出题者可能通过修改 IHDR 的宽高实现隐写：在 Windows 自带看图工具中会按 IHDR 显示宽高，修改后可能导致信息被隐藏或错位。部分软件或系统在打开时会校验 CRC 值，若 CRC 不正确则可能报错或无法打开。
+题目链接:
+- <a href="https://www.nssctf.cn/problem/4324">PNG高度修复</a>
+- <a href="https://www.nssctf.cn/problem/4325">PNG宽高修复</a>
+JPEG 或 BMP 也存在“宽高隐写”的思路，同理需要修改相应的宽高比特位。
+题目链接：
+- <a href="https://www.nssctf.cn/problem/4326">JPG宽高修复</a>
+- <a href="https://www.nssctf.cn/problem/4327">BMP宽高修复</a></p>
+<hr />
+<h2 id="lsb">LSB隐写<a class="headerlink" href="#lsb" title="Permanent link">&para;</a></h2>
+<p>LSB（Least Significant Bit）隐写将隐藏信息嵌入到图像的最低有效位。在 PNG 存储中，每个颜色分量为 8 bit，对应 256 种取值；RGB 三通道总计 256^3=16,777,216 种颜色。人眼可区分约千万级颜色，剩余差异通常难以察觉，因此在最低有效位嵌入数据通常不易被肉眼发现。</p>
+<p><img alt="" src="../imgs/rgb.jpg" /> </p>
+<p>题目链接：
+- <a href="https://www.nssctf.cn/problem/4440">LSB隐写1</a> 
+- <a href="https://www.nssctf.cn/problem/4441">LSB隐写2</a></p>
+<hr />
+<h2 id="gif">GIF分离<a class="headerlink" href="#gif" title="Permanent link">&para;</a></h2>
+<p>GIF 与视频可视作由多帧图片构成。对变化较快的 GIF，可分离各帧以获取可能隐藏在某一帧中的信息。</p>
+<p>题目链接：
+- <a href="https://www.nssctf.cn/problem/4442">GIF分离</a></p>
+<hr />
+<h2 id="exif">Exif 信息<a class="headerlink" href="#exif" title="Permanent link">&para;</a></h2>
+<blockquote>
+<p>可交换图像文件格式（英语：Exchangeable image file format，官方简称Exif），是专门为数码相机之照片设定的文件格式，可以记录数码照片的属性信息和拍摄数据
+Exif可以附加于JPEG、TIFF、RIFF等文件之中，为其增加有关数码相机拍摄信息的内容和索引图或图像处理软件的版本信息。</p>
+</blockquote>
+<p>题目链接：
+- <a href="https://www.nssctf.cn/problem/507">Exif信息隐写</a></p>
+<hr />
+<h2 id="_12">参考资料<a class="headerlink" href="#_12" title="Permanent link">&para;</a></h2>
+<ul>
+<li><a href="https://hello-ctf.com/">Hello-CTF 官网</a></li>
+<li><a href="https://ctf-wiki.org/">CTF-Wiki 官网</a></li>
+<li><a href="http://www.jianshu.com/p/df52f1511cf8">gif 格式图片详细解析</a></li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../../..", "features": [], "search": "../../../assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.1e8ae164.min.js"></script>
+      
+        <script src="../../../_static/js/extra.js?v=16"></script>
+      
+        <script src="https://cdnjs.loli.net/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+      
+    
+  </body>
+</html>
